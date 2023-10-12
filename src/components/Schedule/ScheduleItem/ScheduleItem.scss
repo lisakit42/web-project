@@ -1,0 +1,29 @@
+h4 { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    color: white;
+    background-color: indianred;
+    z-index: 1;
+}
+
+span.today {
+    background-color: #E57373;
+    padding: 10px;
+}
+
+table {
+    width: 500px;
+    box-shadow: 1px 1px 3px 4px rgba(0, 0, 0, 0.418);
+    border-collapse: collapse;
+}
+
+.time {
+    text-align: center;
+    padding: 2px;
+    width: 50px;
+}
+td {
+    border: 1px solid rgb(0, 0, 0);
+}
