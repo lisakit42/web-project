@@ -1,23 +1,26 @@
 import "./ScheduleItem.scss"
 
-const SchedulItem = () => {
-    return <div>
-        <h4 className="cardTitle">Понедельник | 9 октября<span className="today ned-num"> I неделя</span></h4>
+
+const SchedulItem = (props) => {
+    const daysArray = ["Понедельник","Вторник","Среда","Четверг","Пятница"]
+    console.log(new Date().getUTCMonth())
+    return <div className="scheduleItemWrapper">
+        <h4 className="cardTitle">{daysArray[props.day - 1]} | 9 октября<span className="today ned-num"> I неделя</span></h4>
         <table>
             <tbody>
                 <tr>
                     <td className="time">8:00<br/>9:30</td>
-                    <td className="desc"><a>Основы Web-инжиниринга</a><br/>Лаптев</td>
+                    <td className="desc"><a>{props.subject[0]}</a><br/>Лаптев</td>
                     <td className="who-where">415зр</td>
                 </tr>
                 <tr>
                     <td className="time">9:45<br/>11:15</td>
-                    <td className="desc">1</td>
+                    <td className="desc">{props.subject[1]}</td>
                     <td className="who-where"></td>
                 </tr>
                 <tr>
                     <td className="time">11:30<br/>13:00</td>
-                    <td className="desc"></td>
+                    <td className="desc">{props.subject[2]}</td>
                     <td className="who-where"></td>
                 </tr>
                 <tr>

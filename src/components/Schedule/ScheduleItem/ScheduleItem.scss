@@ -15,7 +15,7 @@ span.today {
 
 table {
     width: 500px;
-    box-shadow: 1px 1px 3px 4px rgba(0, 0, 0, 0.418);
+    // box-shadow: 1px 1px 3px 4px rgba(0, 0, 0, 0.418);
     border-collapse: collapse;
 }
 
@@ -25,5 +25,11 @@ table {
     width: 50px;
 }
 td {
-    border: 1px solid rgb(0, 0, 0);
+    border: 2px solid rgba(208, 208, 208, 0.83);
+    padding: 10px;
+}
+
+.scheduleItemWrapper {
+    box-shadow: 0px 8px 10px gray, 
+    -10px 8px 15px gray, 10px 8px 15px gray;
 }
