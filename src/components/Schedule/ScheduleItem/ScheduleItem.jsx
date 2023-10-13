@@ -2,15 +2,17 @@ import "./ScheduleItem.scss"
 
 
 const SchedulItem = (props) => {
-    const daysArray = ["Понедельник","Вторник","Среда","Четверг","Пятница"]
-    console.log(new Date().getUTCMonth())
+    const daysArray = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"]
+    const monthsArray = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
+    console.log(props.date)
+
     return <div className="scheduleItemWrapper">
-        <h4 className="cardTitle">{daysArray[props.day - 1]} | 9 октября<span className="today ned-num"> I неделя</span></h4>
+        <h4 className="cardTitle">{daysArray[props.day - 1]} | {`${props.date} ${monthsArray[props.month]}`} <span className={`ned-num ${props.date == new Date().getDate() ? "today" : ""}`}> {props.week} неделя</span></h4>
         <table>
             <tbody>
                 <tr>
                     <td className="time">8:00<br/>9:30</td>
-                    <td className="desc"><a>{props.subject[0]}</a><br/>Лаптев</td>
+                    <td className="desc"><a>{props.subject[0]}</a><br/>{props.teacher}</td>
                     <td className="who-where">415зр</td>
                 </tr>
                 <tr>
