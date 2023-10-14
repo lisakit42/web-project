@@ -4,12 +4,14 @@ import Header from './components/Header/Header';
 import SchedulItem from './components/Schedule/ScheduleItem/ScheduleItem';
 
 const array = ["1","2","3"]
-const s = new Date().getDate();
 function App() {
+  const date = new Date(Date.now());
+  console.log(date.getDate())
   return (
     <div className="App">
       {/* <Authorization/> */}
-      <SchedulItem date={s} subject = {array}/>
+      <SchedulItem date ={date.getDate() - 1}  day={date.getDay() - 1} week="I" subject = {array}/>
+      <SchedulItem date ={date.getDate()} day={date.getDay()} week="I" subject = {array}/>
       
     </div>
   );

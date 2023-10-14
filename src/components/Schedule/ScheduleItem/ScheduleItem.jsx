@@ -7,7 +7,7 @@ const SchedulItem = (props) => {
     console.log(props.date)
 
     return <div className="scheduleItemWrapper">
-        <h4 className="cardTitle">{daysArray[props.day - 1]} | {`${props.date} ${monthsArray[props.month]}`} <span className={`ned-num ${props.date == new Date().getDate() ? "today" : ""}`}> {props.week} неделя</span></h4>
+        <h4 className={`cardTitle ${props.day == new Date().getDay() ? 'today' : ''}`}>{daysArray[props.day - 1]} | {`${props.date} ${monthsArray[props.month]}`} <span className={`ned-num ${props.date == new Date().getDate() ? "today" : ""}`}>{props.week} неделя</span></h4>
         <table>
             <tbody>
                 <tr>
@@ -27,17 +27,17 @@ const SchedulItem = (props) => {
                 </tr>
                 <tr>
                     <td className="time">13:50<br/>15:20</td>
-                    <td className="desc"></td>
+                    <td className="desc">{props.subject[3]}</td>
                     <td className="who-where"></td>
                 </tr>
                 <tr>
                     <td className="time">15:35<br/>17:05</td>
-                    <td className="desc"></td>
+                    <td className="desc">{props.subject[4]}</td>
                     <td className="who-where"></td>
                 </tr>
                 <tr>
                     <td className="time">17:20<br/>18:50</td>
-                    <td className="desc"></td>
+                    <td className="desc">{props.subject[5]}</td>
                     <td className="who-where"></td>
                 </tr>
             </tbody>

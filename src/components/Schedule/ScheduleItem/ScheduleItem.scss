@@ -1,15 +1,23 @@
-h4 { 
+.cardTitle {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-left: 10px;
-    color: white;
-    background-color: indianred;
+    font-weight: 300;
+    color: black;
+    background-color: lightblue;
     z-index: 1;
+}
+
+.cardTitle.today {
+    font-weight: 400;
+    color: white; 
+    background-color: indianred;
 }
 
 .ned-num {
     padding: 10px;
+    color: white;
     background-color: #64B5F6;
 }
 
