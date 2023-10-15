@@ -1,48 +1,51 @@
-.cardTitle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 10px;
-    font-weight: 300;
-    color: black;
-    background-color: lightblue;
-    z-index: 1;
-}
-
-.cardTitle.today {
-    font-weight: 400;
-    color: white; 
-    background-color: indianred;
-}
-
-.ned-num {
-    padding: 10px;
-    color: white;
-    background-color: #64B5F6;
-}
-
-.ned-num.today {
-    background-color: #E57373;
-}
-
-table {
-    width: 500px;
-    // box-shadow: 1px 1px 3px 4px rgba(0, 0, 0, 0.418);
-    border-collapse: collapse;
-}
-
-.time {
-    text-align: center;
-    padding: 2px;
-    width: 50px;
-}
-
-td {
-    border: 2px solid rgba(208, 208, 208, 0.83);
-    padding: 10px;
-}
-
 .scheduleItemWrapper {
     box-shadow: 0px 8px 10px gray, 
     -10px 8px 15px gray, 10px 8px 15px gray;
+    .cardTitle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 10px;
+        font-weight: 300;
+        color: black;
+        background-color: lightblue;
+        z-index: 1;
+
+        .ned-num {
+            padding: 10px;
+            color: white;
+            background-color: #64B5F6;
+        }
+
+        .ned-num.today {
+            background-color: #E57373;
+        }
+    }
+
+    .cardTitle.today {
+        font-weight: 400;
+        color: white; 
+        background-color: indianred;
+    }
+
+    table {
+        width: 400px;
+        // box-shadow: 1px 1px 3px 4px rgba(0, 0, 0, 0.418);
+        border-collapse: collapse;
+        
+        td {
+            border: 2px solid rgba(208, 208, 208, 0.83);
+            padding: 10px;
+        }
+    
+        .who-where {
+            width: 60px;
+        }
+        
+        .time {
+            text-align: center;
+            padding: 2px;
+            width: 50px;
+        }
+    }
 }
