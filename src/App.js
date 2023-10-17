@@ -1,5 +1,5 @@
 import './App.css';
-import Authorization from './components/AuthorizationPage/Authorization';
+import Authorization from './pages/AuthorizationPage/Authorization';
 import Header from './components/Header/Header';
 import Schedule from './components/Schedule/Schedule';
 import SchedulItem from './components/Schedule/ScheduleItem/ScheduleItem';
@@ -10,7 +10,7 @@ function App() {
   console.log(date.getDate())
   return (
     <div className="App">
-      {/* <Authorization/> */}
+      <Authorization/>
       {/* <SchedulItem date ={date.getDate() - 1}  day={date.getDay() - 1} week="I" subject = {array}/> */}
       {/* <SchedulItem date ={date.getDate()} day={date.getDay()} week="I" subject = {array}/> */}
       <Schedule />

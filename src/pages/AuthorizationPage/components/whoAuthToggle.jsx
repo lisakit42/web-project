@@ -1,5 +1,5 @@
-import StudentSvg from "./svg/Student.svg"
-import TeacherSvg from "./svg/Teacher.svg"
+import StudentSvg from "../svg/Student.svg"
+import TeacherSvg from "../svg/Teacher.svg"
 import "./whoAuthToggle.scss"
 import { useState } from "react"
 const WhoAuthToggle = () => {
