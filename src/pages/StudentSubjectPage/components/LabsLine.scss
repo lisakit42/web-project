@@ -1,0 +1,22 @@
+.PinWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.circle {
+    display: flex;
+    border-radius: 10px;
+    background: #54DB6B; 
+    width: 10px;
+    height: 10px;
+    scale: 1.2;
+}
+
+.stick {
+    display: flex;
+    height: 40px;
+    width: 2px;
+    background: #54DB6B;
+}

@@ -1,19 +1,10 @@
-import BigLogo from "./svg/BigLogo.svg"
-import "./Authorization.scss"
-import WhoAuthToggle from "./components/whoAuthToggle"
+import "./StudentSubjectPage.scss"
+import LabsLine from "./components/LabsLine"
 
-const Authorization = () => {
-    return <form>
-        <div className="Authorization">
-        <img src={BigLogo} alt="" className="Logo" />
-        <WhoAuthToggle />
-        <div className="inputs">
-            <input type="text"  placeholder="Логин" data-validate name="loginField" id="loginField" className="AuthField" />
-            <input type="password" placeholder="Пароль" name="PasswordField" id="PasswordField" className="AuthField" />
-            <button type="submit" className="AuthButton" onClick={() => {console.log() }}>Авторизоваться</button>
-        </div>
+const StudentSubjectPage = () => {
+    return <div>
+        <LabsLine />
     </div>
-    </form>
 }
 
-export default Authorization
+export default StudentSubjectPage
