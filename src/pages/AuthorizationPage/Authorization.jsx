@@ -36,7 +36,7 @@ const Authorization = (props) => {
             <img src={BigLogo} alt="" className="Logo" />
             <WhoAuthToggle student={student} setStudent={() => {setStudent(!student)}}/>
             <div className="inputs">
-            <div className={`incorrectData ${!successLogin ? 'show' : ''}`}>Введенные данные некорректны</div>
+            <div className={`incorrectData ${!successLogin ? 'show' : ''}`}>Некорректные данные</div>
                 <div className="loginInputDiv">
                     <input type="text" placeholder="Логин" data-validate name="loginField" id="loginField" className="AuthField" onInput={ev => { login = ev.target.value; if (!inputFill.loginFill) setFill({...inputFill, loginFill: true}); if (!successLogin) setSuccess(true) }} />
                     <span className={`noFillSpan ${inputFill.loginFill ? '' : 'show'}`}>Поле обязательно к заполнению*</span>
