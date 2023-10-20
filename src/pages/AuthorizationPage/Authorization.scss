@@ -23,6 +23,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
     margin-top: 10px;
     gap: 15px;
 
@@ -98,4 +99,25 @@
 .noFillSpan.show {
     height: 75px;
     opacity: 100;
+}
+
+.incorrectData {
+    text-align: center;
+    padding: 1px;
+    width: 534px;
+    height: 121px;
+    color: white;
+    background-color: rgb(255, 147, 53);
+    border-radius: 15px;
+    box-shadow: 0 0 1px 3px rgb(255, 147, 53);
+    top: 0px;
+    position: absolute;
+    opacity: 0;
+    transition: ease 200ms;
+}
+
+.incorrectData.show {
+    height: 149px;
+    opacity: 100%;
+    top: -25px;
 }

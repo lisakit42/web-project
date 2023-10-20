@@ -8,7 +8,7 @@ const Header = () => {
         <img src={BigLogo}  className='headerLogo'/>
         <button onClick={() => {localStorage.clear(); navigate('/')}}>Logout</button>
         <div className='headerUser'>
-            <a className='fioLink'>{JSON.parse(localStorage.getItem('user')).fio}</a>
+            <a className='fioLink'>{localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).fio : ''}</a>
             <div className='avatar'>
                 <img src={Ava} alt="" />
             </div>
