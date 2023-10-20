@@ -3,7 +3,7 @@ import "./ProgrammTile.scss"
 
 
 const ProgrammTile = () => {
-    return <div className="TileWrapper">    
+    return <div className="TileWrapper">  
         <img src={Logo} />
     </div>
 }

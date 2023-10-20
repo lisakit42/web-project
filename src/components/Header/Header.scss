@@ -1,0 +1,40 @@
+$a: 11%;
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 11%;
+    align-items: center;
+    height: 60px;
+    width: 78%;
+    background-color: #2E7F3E;
+}
+
+.headerLogo {
+    
+}
+
+.fioLink {
+    color: white;
+}
+
+.headerUser {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
+    img {
+        margin-left: px;
+        width: 35px;
+        height: 35px;
+    }
+}

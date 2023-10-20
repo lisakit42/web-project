@@ -5,19 +5,20 @@ import Schedule from './components/Schedule/Schedule';
 import SchedulItem from './components/Schedule/ScheduleItem/ScheduleItem';
 import ProgrammTile from './pages/ProgrammsPage/components/ProgrammTile/ProgrammTile';
 import StudentSubjectPage from './pages/StudentSubjectPage/StudentSubjectPage';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import MainPage from './pages/MainPage/MainPage';
 
-const array = ["1","2","3"]
+
 function App() {
-  const date = new Date(Date.now());
-  console.log(date.getDate())
+  console.log(localStorage.getItem('student'))
   return (
     <div className="App">
-      {/* <Authorization /> */}
-      {/* <SchedulItem date ={date.getDate() - 1}  day={date.getDay() - 1} week="I" subject = {array}/> */}
-      {/* <SchedulItem date ={date.getDate()} day={date.getDay()} week="I" subject = {array}/> */}
-      {/* <Schedule /> */}
-      {/* <ProgrammTile /> */}
-      <StudentSubjectPage />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Authorization />} />
+          <Route path="/main" element={<MainPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
