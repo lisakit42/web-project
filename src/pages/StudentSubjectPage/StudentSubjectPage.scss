@@ -14,4 +14,36 @@
         margin-top: 100px;
         width: 78%
     }
+    .blackLine {
+        width: 95%;
+        margin: 100px 0 50px 0;
+        height: 1px;
+        background-color: black;
+    }
+
+    .labsListWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .labRow {
+        display: flex;
+        justify-content: center;
+        width: 90%;
+        height: 30px;
+        padding: 20px 10px;
+        align-items: center;
+        border-bottom: 1px solid #57575712;
+        h2 {
+            margin-right: 6px;
+        }
+        h3 {
+            width: 85%;
+        }
+        h2, h3, h4 {
+            font-size: 20px;
+        }
+    }
 }

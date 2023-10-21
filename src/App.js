@@ -16,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Authorization />} />
-          <Route path="/main" element={<MainPage />} />
+          <Route path="/main/*" element={<MainPage />} />
         </Routes>
       </BrowserRouter>
     </div>
