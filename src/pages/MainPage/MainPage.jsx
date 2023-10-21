@@ -6,11 +6,11 @@ import Header from "../../components/Header/Header";
 
 const MainPage = () => {
     const navigate = useNavigate()
-    useEffect(() => {if (!localStorage.getItem('student')) navigate('/')}, [])
+    useEffect(() => {if (!localStorage.getItem('user')) navigate('/')}, [])
     return <div style={{width:"100%"}}>
         <Header />
         <Routes>
-            <Route path="/" element={JSON.parse(localStorage.getItem('student')) ? <StudentSubjectPage /> : <ProgrammTile />} />
+            <Route path="/" element={JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).student ? <StudentSubjectPage /> : <ProgrammTile /> : ""} />
         </Routes>
     </div>
 }

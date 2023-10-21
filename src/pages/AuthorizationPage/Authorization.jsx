@@ -52,7 +52,6 @@ const Authorization = (props) => {
                             user = accExist(student)
                             if (user) {
                                 localStorage.setItem('user', JSON.stringify(user))
-                                localStorage.setItem('student',student)
                                 navigate('/main')
                             } else {
                                 setSuccess(false);
