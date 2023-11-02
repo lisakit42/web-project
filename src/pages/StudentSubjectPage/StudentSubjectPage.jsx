@@ -9,23 +9,27 @@ const LabRow = (props) => {
     </div>
 }
 
-const labList = [{title: 'Учимся писать в ворде', deadline: '01.09.2023', link: ''},
-                 {title: 'Писать в ворде научились, учимся качать редактор поинтереснее', deadline: '07.09.2023', link: ''},
-                 {title: 'Ohmygod, is it sharp C?', deadline: '21.09.2023', link: ''},
-                 {title: 'Oh, no, it is Java.', deadline: '05.10.2023', link: ''},
-                 {title: 'Выучить английский за 15 минут? Легко, нужно всего то скачать редактор...', deadline: '19.10.2023', link: ''}
-                ].map((el,i) => <LabRow id={i} title={el.title} date={el.deadline} link={el.link}/>)
-
 const StudentSubjectPage = () => {
+    
+    const labList = [
+        { title: 'Учимся писать в ворде', deadline: '01.09.2023', link: '', status: '1' },
+        { title: 'Писать в ворде научились, учимся качать редактор поинтереснее', deadline: '07.09.2023', link: '', status: '1' },
+        { title: 'Ohmygod, is it sharp C?', deadline: '21.09.2023', link: '', status: '2' },
+        { title: 'Oh, no, it is Java.', deadline: '05.10.2023', link: '', status: '3' },
+        { title: 'Выучить английский за 15 минут? Легко, нужно всего то скачать редактор...', deadline: '19.10.2023', link: '', status: '0' },
+        { title: 'Выучить английский за 15 минут? Легко, нужно всего то скачать редактор...', deadline: '19.10.2023', link: '', status: '' },
+        { title: 'Выучить английский за 15 минут? Легко, нужно всего то скачать редактор...', deadline: '19.10.2023', link: '', status: '' },
+        { title: 'Выучить английский за 15 минут? Легко, нужно всего то скачать редактор...', deadline: '19.10.2023', link: '', status: '' }]
+        
     return <div className="StudentSubjectPage">
         <div className="LabsStatic">
             <h1>Разработка ПО</h1>
             <h5>Фамилия преподователя</h5>
-            <LabsLine />
+            <LabsLine labs={labList} />
         </div>
         <div className="blackLine"></div>
         <div className="labsListWrapper">
-            {labList}
+            {labList.map((el,i) => <LabRow id={i} title={el.title} date={el.deadline} link={el.link}/>)}
         </div>
     </div>
 }

@@ -1,0 +1,44 @@
+.TileWrapper {
+    width: 259px;
+    height: 347px;
+    flex-shrink: 0;
+    border-radius: 26px;
+    border: 1px solid #9B9B9B;
+    background: rgba(240, 240, 240, 0.48);
+    justify-content: space-between;
+    align-content: space-between;
+    //border-radius: 26px;
+}
+
+.maintext {
+    color: #000;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+
+.num {
+    color: #000;
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.fac {
+    color: #000;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.group {
+    color: #000;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

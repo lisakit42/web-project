@@ -36,6 +36,8 @@
         padding: 20px 10px;
         align-items: center;
         border-bottom: 1px solid #57575712;
+        transition: ease 200ms;
+        cursor: pointer;
         h2 {
             margin-right: 6px;
         }
@@ -45,5 +47,21 @@
         h2, h3, h4 {
             font-size: 20px;
         }
+    }
+    .labRow:hover {
+        background: rgba(240, 240, 240, 0.728);
+    }
+    .labRow.active {
+        background: rgba(49, 133, 66, 0.217);
+    }
+}
+
+@keyframes activeLight {
+    from {
+
+    }
+
+    to {
+        
     }
 }
