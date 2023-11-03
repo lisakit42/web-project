@@ -5,18 +5,37 @@
     border-radius: 26px;
     border: 1px solid #9B9B9B;
     background: rgba(240, 240, 240, 0.48);
+    // justify-content: space-between;
+    // align-content: space-between;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-content: space-between;
     //border-radius: 26px;
 }
 
-.maintext {
+.mainText {
     color: #000;
     font-size: 36px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    padding: 14px 116px 0px 24px;
+}
 
+.middleText {
+    padding: 20px 180px 27px 24px;
+}
+
+.botText {
+    padding: 0px 0px 254px 24px;
+}
+
+.labrab {
+    padding: 0px 0px 0px 0x;
+}
+
+.semestr{
+    font-size: 30px;
 }
 
 .num {
@@ -33,6 +52,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    padding: 0px 0px 11px 0px;
 }
 
 .group {
@@ -41,4 +61,14 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+.backLogo {
+    width: 129px;
+    height: 230.172px;
+    flex-shrink: 0;
+    fill: rgba(46, 127, 62, 0.69);
+    position: absolute;
+    opacity: 69%;
+    padding: 76px 15px 40px 115px;
 }
