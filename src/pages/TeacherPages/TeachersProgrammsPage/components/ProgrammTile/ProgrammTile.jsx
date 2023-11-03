@@ -14,7 +14,7 @@ const ProgrammTile = () => {
         </div>
         <div className="botText">
             <p className="num">15</p>
-            <p className="labrab">лабораторных работ</p>
+            <p>лабораторных работ</p>
         </div>
         <div className="backLogo">
             <img src={Logo} />
