@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import "./StudentSubjectPage.scss"
 import LabsLine from "./components/LabsLine"
 
@@ -20,8 +21,10 @@ const StudentSubjectPage = () => {
         { title: 'Выучить английский за 15 минут? Легко, нужно всего то скачать редактор...', deadline: '19.10.2023', link: '', status: '' },
         { title: 'Выучить английский за 15 минут? Легко, нужно всего то скачать редактор...', deadline: '19.10.2023', link: '', status: '' },
         { title: 'Выучить английский за 15 минут? Легко, нужно всего то скачать редактор...', deadline: '19.10.2023', link: '', status: '' }]
-        
+    
+    const navigate = useNavigate()
     return <div className="StudentSubjectPage">
+        <div className="backButton" onClick={() => navigate('/.')}>←Назад</div>
         <div className="LabsStatic">
             <h1>Разработка ПО</h1>
             <h5>Фамилия преподователя</h5>

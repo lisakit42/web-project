@@ -1,0 +1,25 @@
+.studentMainPageWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    width: 100%;
+}
+
+.subjectNow {
+    margin-top: 50px;
+    box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.422);
+    text-align: center;
+    border: 1px solid black;
+    background: rgb(246, 246, 246);
+    border-radius: 10px;
+    padding: 8px 25px;
+    :first-child {
+        font-size: 20px;
+        font-weight: 600;
+    }
+    p {
+        font-size: 18px;
+        padding: 5px;
+    }
+}

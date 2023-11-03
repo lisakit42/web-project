@@ -3,7 +3,7 @@
     margin-top: 50px!important;
     padding: 0 50px;
     height: 120px;
-    
+    gap: 2px;
     justify-content: center;
     border-bottom: #1b4d25 solid 2px;
     align-items: end;
@@ -15,6 +15,7 @@
     align-items: center;
     min-width: 14%;
     color: #797979;
+    cursor: pointer;
 }
 
 .deadline {
