@@ -1,9 +1,9 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
-import ProgrammTile from "../TeachersProgrammsPage/components/ProgrammTile/ProgrammTile";
-import StudentSubjectPage from "../StudentSubjectPage/StudentSubjectPage";
+import ProgrammTile from "../TeacherPages/TeachersProgrammsPage/components/ProgrammTile/ProgrammTile";
+import StudentSubjectPage from "../StudentPages/StudentSubjectPage/StudentSubjectPage";
 import { useEffect } from "react";
 import Header from "../../components/Header/Header";
-import StudentsMainPage from "../StudentsMainPage/StudentsMainPage";
+import StudentsMainPage from "../StudentPages/StudentsMainPage/StudentsMainPage";
 
 const MainPage = () => {
     const navigate = useNavigate()

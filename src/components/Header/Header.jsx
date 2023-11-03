@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import s from './Header.scss'
+import './Header.scss'
 import BigLogo from './BigLogoWhite.svg'
-import Ava from '../../pages/TeachersProgrammsPage/components/ProgrammTile/KubsauLogo.svg'
+import Ava from '../../pages/TeacherPages/TeachersProgrammsPage/components/ProgrammTile/KubsauLogo.svg'
+
 const Header = () => {
     const navigate = useNavigate()
     return <header>

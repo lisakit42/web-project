@@ -2,7 +2,6 @@ import './App.css';
 import Authorization from './pages/AuthorizationPage/Authorization';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import MainPage from './pages/MainPage/MainPage';
-import StudentSubjectPage from './pages/StudentSubjectPage/StudentSubjectPage';
 
 
 function App() {

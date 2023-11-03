@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import Schedule from "../../components/Schedule/Schedule"
+import Schedule from "../../../components/Schedule/Schedule"
 import "./StudentsMainPage.scss"
 
 const StudentsMainPage = () => {
