@@ -12,7 +12,7 @@ const AddLabModal = () => {
         {isModalOpen && ReactDOM.createPortal(<div className='addModalWrapper'>
             <button onClick={() => {setModalOpen(false)}}>Закрыть</button>
         </div>, portal)}
-        <button className='addLabButton'onClick={() => {setModalOpen(true)}}>+Добавить лабу</button>
+        <button className='addLabButton'onClick={() => {setTimeout();setModalOpen(true)}}>+Добавить лабу</button>
     </div>
 }
 

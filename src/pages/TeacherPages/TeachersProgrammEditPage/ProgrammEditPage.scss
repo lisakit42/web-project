@@ -104,8 +104,21 @@
 }
 
 .addModalWrapper{
-    position: absolute;
-    width: 100%;
+    position: fixed;
+    width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.333);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: appear 200ms;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100%;
+    }
 }
