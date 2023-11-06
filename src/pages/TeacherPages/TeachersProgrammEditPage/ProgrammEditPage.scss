@@ -112,17 +112,18 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.333);
-    animation: appear ease-out 200ms ;
+    animation: appear ease-out 200ms;
     .addLabModal {
         display: flex;
         align-items: center;
         flex-direction: column;
+        position: relative;
         gap: 40px;
         width: 50%;
         height: 50%;
-        padding: 30px;
+        padding: 50px;
         background: white;
-        animation: updown 400ms ;
+        animation: updown 400ms ease-out;
         .nameInputWrapper {
             width: 80%;
             position: relative;
@@ -160,10 +161,27 @@
                 outline: none;
             }
         }
+        h1 {
+            position: relative;
+        }
+        .labCount {
+            font-style: italic;
+            position: absolute;
+            
+            font-size: 32px;
+        }
+        .dateInputs {
+            display: flex;
+            width: 80%;
+        }
     }
 }
+
 .addModalWrapper.disappear {
-    animation: appear ease-in 200ms;
+    animation: disappear ease-in 200ms;
+    .addLabModal {
+        animation: downup ease-in 200ms;
+    }
 }
 
 @keyframes appear {
@@ -176,6 +194,16 @@
     }
 }
 
+@keyframes disappear {
+    from {
+        opacity: 100%;
+    }
+
+    to {
+        opacity: 0%;
+    }
+}
+
 @keyframes updown {
     from {
         margin-top: -100px;
@@ -183,5 +211,15 @@
     
     to {
         margin-top: 0;
+    }
+}
+
+@keyframes downup {
+    from {
+        margin-top: 0px;
+    }
+    
+    to {
+        margin-top: -100px;
     }
 }

@@ -8,20 +8,27 @@ const portal = document.getElementById('modal');
 const AddLabModal = (props) => {
     return <div className='addModalWrapper' id='addLabModal'>
         <div className='addLabModal'>
-            <h1>Добавить новую лабораторную работу</h1>
+            <h1>
+                <h1 className="labCount">{`№${props.count}`}</h1>Добавить новую лабораторную работу</h1>
             <div className="nameInputWrapper">
                 <input type="text" id='name' onBlur={el => { if (!el.target.value) el.target.labels[0].classList.remove('ff') }} onFocus={el => el.target.labels[0].classList.add('ff')} className='labNameInput' />
                 <label className='nameLabel' onClick={el => console.log(el.target.offsetParent)} htmlFor='name'>Название</label>
             </div>
-            <div className="startInputWrapper">
-                <label htmlFor="startDatePicker">Выберите дату начала:</label>
-                <br />
-                <input type="date" id='startDatePicker' className='startDatePicker' />
+            <div className='dateInputs'>
+                <div className="startInputWrapper">
+                    <label htmlFor="startDatePicker">Выберите дату начала:</label>
+                    <br />
+                    <input type="date" id='startDatePicker' className='startDatePicker' />
+                </div>
+                <div className="startInputWrapper">
+                    <label htmlFor="endDatePicker">Выберите дату дедлайна:</label>
+                    <br />
+                    <input type="date" id='endDatePicker' className='startDatePicker' />
+                </div>
             </div>
-            <input type="date" />
             <br />
             <input type="file" />
-            <button onClick={() => {let wrap = document.querySelector('.addModalWrapper');wrap.classList.add('disappear');props.setModalOpen(true); setTimeout(() => {props.setModalOpen(false)}, 2000) }}>Закрыть</button>
+            <button onClick={(el) => {let wrap = document.querySelector('.addModalWrapper'); wrap.classList.add('disappear'); setTimeout(() => {props.setModalOpen(false)}, 180) }}>Закрыть</button>
         </div>
 
     </div>
