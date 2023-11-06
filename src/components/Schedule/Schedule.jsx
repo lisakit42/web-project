@@ -7,7 +7,7 @@ const array = ["1","2","3"]
 const Schedule = () => {
   const [schedule, setSchedule] = useState(null)
 
-  const scheduleApiUrl = 'https://www.anapioficeandfire.com/api/books?pageSize=30'
+  const scheduleApiUrl = 'http://web-project.somee.com/project/api/schedule'
 
   const fetchData = async () => {
     const respone = await axios.get(scheduleApiUrl)
