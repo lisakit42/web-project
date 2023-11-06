@@ -61,22 +61,22 @@
         }
 
         .fileTD {
-            position: relative;
-
             .filePicker {
                 z-index: -1;
+                width: 0;
                 position: absolute;
                 opacity: 0;
             }
 
             label {
+                display: block;
+                height: 24px;
                 span {
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
                     background: #EDEDED;
+                    align-items: center;
                     width: 115px;
-                    height: 22px;
+                    height: 24px;
                     border: 1px dashed black;
                     border-radius: 5px;
                     transition: ease 100ms;
@@ -84,6 +84,7 @@
                     img {
                         width: 15px;
                         height: 20px;
+                        margin: 0 auto;
                     }
                 }
 
@@ -105,20 +106,82 @@
 
 .addModalWrapper{
     position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.333);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: appear 200ms;
+    animation: appear ease-out 200ms ;
+    .addLabModal {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 40px;
+        width: 50%;
+        height: 50%;
+        padding: 30px;
+        background: white;
+        animation: updown 400ms ;
+        .nameInputWrapper {
+            width: 80%;
+            position: relative;
+            .labNameInput {
+                position:relative;
+                z-index: 1;
+                background: transparent;
+                width: 100%;
+                font-size: 20px;
+                border: none;
+                outline: none;
+                border-bottom: 1px solid rgb(165, 165, 165);
+            }
+            .nameLabel {
+                display: block;
+                position: absolute;
+                color: #a2a2a2;
+                font-size: 20px;
+                left: 0;
+                top: -2px;
+                transition: ease 100ms;
+            }
+            .nameLabel.ff {
+                color: #000;
+                top: -23px;
+                left: -2px;
+                font-size: 15px;
+            }
+        }
+        .startInputWrapper {
+            width: 80%;
+            .startDatePicker {
+                font-size: 20px;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+}
+.addModalWrapper.disappear {
+    animation: appear ease-in 200ms;
 }
 
 @keyframes appear {
     from {
-        opacity: 0;
+        opacity: 0%;
     }
+
     to {
         opacity: 100%;
+    }
+}
+
+@keyframes updown {
+    from {
+        margin-top: -100px;
+    }
+    
+    to {
+        margin-top: 0;
     }
 }
