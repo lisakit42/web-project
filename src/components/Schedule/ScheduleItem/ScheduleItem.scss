@@ -34,12 +34,26 @@
         border-collapse: collapse;
         
         td {
-            border: 2px solid rgba(208, 208, 208, 0.83);
-            padding: 10px;
+            padding: 9px;
         }
-    
+
+        tr {
+            border: 1px solid rgba(208, 208, 208, 0.83); 
+            height: 60px;
+        }
+
+        .type {
+            background-color: #EFEFEF;
+            padding: 0;
+            width: 8px;
+        }
+
+        .type.lecture{
+            background-color: moccasin;
+        }
+
         .who-where {
-            width: 60px;
+            width: 50px;
         }
         
         .time {

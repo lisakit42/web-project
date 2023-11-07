@@ -6,7 +6,7 @@ import ProgrammTile from './pages/TeacherPages/TeachersProgrammsPage/components/
 
 
 function App() {
-  console.log(localStorage.getItem('student'))
+  console.log(localStorage.getItem('user'))
   return (
     <div className="App">
       <BrowserRouter>

@@ -1,39 +1,35 @@
-import SchedulItem from "./ScheduleItem/ScheduleItem";
-import React, { useState } from 'react';
+import ScheduleItem from "./ScheduleItem/ScheduleItem";
+import React, { useEffect, useState } from 'react';
 import './Schedule.scss'
 import axios from "axios";
-const array = ["1","2","3"]
 
 const Schedule = () => {
   const [schedule, setSchedule] = useState(null)
-
+  const [ScheduleItems, setScheduleItems] = useState([])
   const scheduleApiUrl = 'http://web-project.somee.com/project/api/schedule'
 
-  const ScheduleItems = [	
-    <SchedulItem day={1} className="Monday" />,	
-    <SchedulItem day={2}className="Tuesday" />,	
-    <SchedulItem day={3}className="Wednesday" />,	
-    <SchedulItem day={4}className="Thursday" />,	
-    <SchedulItem day={5}className="Friday" />]
-
-  const fetchData = async () => {
-    const respone = await axios.get(scheduleApiUrl)
-    
-    setTimeout(() => {ScheduleItems.map((ScheduleItem, i) => {
-      let date = new Date(respone.data[i].Day.split('/').join('-'));
-      
-      ScheduleItem = <SchedulItem day={date.getDay()} date={date.getDate()} />
-    });setSchedule(respone.data); console.log(ScheduleItems)},1000)
-    
-    
-    
+  const fetchData = () => {
+    const respone = axios.get(scheduleApiUrl)
+    respone.then((res) => {setSchedule(res.data)})    
   }
-  const date = new Date(Date.now());
-  const oldDate = new Date('12-16-2022').getDay()
-  console.log(oldDate)
-
+  const insertData = () => {
+    if (schedule && !ScheduleItems.length) {
+      for (let i = 0; i < 5; i++) {
+        let date = new Date(schedule[i].Day.split('/').join('-'));
+        ScheduleItems.push(
+          <ScheduleItem key={i} week_number={schedule[i].Week_number} className={`d${i + 1}`} day={date.getDay()} date={date.getDate()} month={date.getMonth()} lessons={schedule[i].lessons} />
+        )
+        console.log(ScheduleItems);
+      }
+      setScheduleItems(ScheduleItems)
+    }
+  }
+  
+  useEffect(fetchData,[]);
+  insertData();
+  console.log(schedule)
+  console.log(ScheduleItems)
   return <div className="scheduleWrapper">
-    <button onClick={fetchData}>fetchData</button>
     {ScheduleItems}
   </div>
 }
