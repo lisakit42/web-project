@@ -7,24 +7,34 @@ const array = ["1","2","3"]
 const Schedule = () => {
   const [schedule, setSchedule] = useState(null)
 
-  const scheduleApiUrl = 'https://www.anapioficeandfire.com/api/books?pageSize=30'
+  const scheduleApiUrl = 'http://web-project.somee.com/project/api/schedule'
+
+  const ScheduleItems = [
+    <SchedulItem day={1} className="Monday" />,
+    <SchedulItem day={2}className="Tuesday" />,
+    <SchedulItem day={3}className="Wednesday" />,
+    <SchedulItem day={4}className="Thursday" />,
+    <SchedulItem day={5}className="Friday" />]
 
   const fetchData = async () => {
     const respone = await axios.get(scheduleApiUrl)
-
-    console.log(respone)
+    
+    setTimeout(() => {ScheduleItems.map((ScheduleItem, i) => {
+      let date = new Date(respone.data[i].Day.split('/').join('-'));
+      
+      SchedulItem = <SchedulItem day={date.getDay()} date={date.getDate()} />
+    });setSchedule(respone.data); console.log(ScheduleItems)},1000)
+    
+    
     
   }
-
   const date = new Date(Date.now());
+  const oldDate = new Date('12-16-2022').getDay()
+  console.log(oldDate)
 
   return <div className="scheduleWrapper">
     <button onClick={fetchData}>fetchData</button>
-    <SchedulItem date={date.getDate()} day={date.getDay()} week="I" subject={array} className="Monday" />
-    <SchedulItem date={date.getDate() + 1} day={date.getDay() + 1} week="I" subject={array} className="Tuesday" />
-    <SchedulItem date={date.getDate() + 2} day={date.getDay() + 2} week="I" subject={array} className="Wednesday" />
-    <SchedulItem date={date.getDate() + 3} day={date.getDay() + 3} week="I" subject={array} className="Thursday" />
-    <SchedulItem date={date.getDate() + 4} day={date.getDay() + 4} week="I" subject={array} className="Friday" />
+    {ScheduleItems}
   </div>
 }
 
