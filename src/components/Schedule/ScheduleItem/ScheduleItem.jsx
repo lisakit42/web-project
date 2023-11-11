@@ -14,14 +14,11 @@ const SchedulItem = (props) => {
         <td className="time">17:20<br />18:50</td>
     ]
 
-    console.log(props.lessons)
-
     return <div className={"scheduleItemWrapper " + props.className}>
         <h4 className={`cardTitle ${props.day == new Date().getDay() ? 'today' : ''}`}>{daysArray[props.day - 1]} | {`${props.date} ${monthsArray[props.month]}`} <span className={`ned-num ${props.date == new Date().getDate() ? "today" : ""}`}>{props.week_number === 1 ? 'I' : 'II'} неделя</span></h4>
         <table>
             <tbody>
                 {lessons.map((lesson, i) => {
-                    console.log(props.lessons[lessonIndex])
                     if (props.lessons[lessonIndex] && i + 1 === props.lessons[lessonIndex].Num) return <tr>
                         {lesson}
                         <td className={`type ${props.lessons[lessonIndex].Lecture ? 'lecture' : ''}`}></td>
