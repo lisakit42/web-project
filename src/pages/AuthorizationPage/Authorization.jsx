@@ -24,7 +24,7 @@ const Authorization = (props) => {
     const Auth = async () => {
         fillCheck((el) => { setFill(el) });
         if (login && password) {
-            let user = await axios.get(`${authApi + login}@${password}`).then(res => res.data)
+            let user = await axios.get(`${authApi + login}@${password}`).then(res => res.data).catch(err => console.log(err))
             console.log(user)
             
             if (user && !!user.type === student) {
