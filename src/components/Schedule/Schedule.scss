@@ -1,46 +1,7 @@
 .scheduleWrapper {
-    // display: grid;
-    // gap: 15px;
-    // grid-template-columns: repeat(6, 192.5px);
-    // grid-template-rows: repeat(2, 1fr);
     display: flex;
     gap: 25px;
     max-width: 69%;
     flex-wrap: wrap;
     justify-content: center;
 }
-
-
-// .d1 {
-//     grid-column-start: 1;
-//     grid-column-end: 3;
-//     grid-row-start: 1;
-//     grid-row-end: 2;
-// }
-
-// .d2 {
-//     grid-column-start: 3;
-//     grid-column-end: 5;
-//     grid-row-start: 1;
-//     grid-area: 'b';
-// }
-
-// .d3 {
-//     grid-column-start: 5;
-//     grid-column-end: 7;
-//     grid-area: 'c';
-// }
-
-// .d4 {
-//     grid-area: 'd';
-//     grid-row-start: 2;
-//     grid-column-start: 2;
-//     grid-column-end: 4;
-// }
-
-// .d5 {
-//     grid-row-start: 2;
-//     grid-column-start: 4;
-//     grid-column-end: 6;
-//     grid-area: 'e';
-// }

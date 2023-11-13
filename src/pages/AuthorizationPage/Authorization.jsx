@@ -3,18 +3,10 @@ import "./Authorization.scss"
 import WhoAuthToggle from "./components/whoAuthToggle"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
+import axios from "axios"
 
-const StudentsList = [{login: "AbkarovSH",fio: "Абкаров Шамил", password: "1234", student: true},
-                      {login: "BobylevaE", fio: "Бобылева Елизавета", password: "1234", student: true}]
-
-const TeachersList = [{login: "Pavlov", fio: "Мистер Матанал", password: "1234", student: false}]
-
-let login = "", password = ""
-
-const accExist = (student) => {
-    if (student) return StudentsList.filter(el => el.login === login && el.password === password)[0]
-    else return TeachersList.filter(el => el.login === login && el.password === password)[0]
-}
+let login = "admin", password = "admin"
+const authApi = 'http://web-project.somee.com/project/api/users/'
 
 const fillCheck = (setFill) => setFill({loginFill: !!login, passwordFill: !!password})
 
@@ -27,13 +19,15 @@ const Authorization = (props) => {
 
     const navigate = useNavigate();
     useEffect(() => {if (isLogged()) navigate('/main')},[])
-    let user = {};
+    let user = {}
 
-    const Auth = () => {
+    const Auth = async () => {
         fillCheck((el) => { setFill(el) });
         if (login && password) {
-            user = accExist(student)
-            if (user) {
+            let user = await axios.get(`${authApi + login}@${password}`).then(res => res.data)
+            console.log(user)
+            
+            if (user && !!user.type === student) {
                 localStorage.setItem('user', JSON.stringify(user))
                 navigate('/main')
             } else {

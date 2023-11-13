@@ -15,7 +15,7 @@ const SchedulItem = (props) => {
     ]
 
     return <div className={"scheduleItemWrapper " + props.className}>
-        <h4 className={`cardTitle ${props.day == new Date().getDay() ? 'today' : ''}`}>{daysArray[props.day - 1]} | {`${props.date} ${monthsArray[props.month]}`} <span className={`ned-num ${props.date == new Date().getDate() ? "today" : ""}`}>{props.week_number === 1 ? 'I' : 'II'} неделя</span></h4>
+        <h4 className={`cardTitle ${props.day == new Date().getDay() ? 'today' : ''}`}>{daysArray[props.day - 1]} | {`${props.date} ${monthsArray[props.month]}`} <span className={`ned-num ${props.day == new Date().getDay() ? "today" : ""}`}>{props.week_number === 1 ? 'I' : 'II'} неделя</span></h4>
         <table>
             <tbody>
                 {lessons.map((lesson, i) => {
