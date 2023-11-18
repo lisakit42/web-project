@@ -4,9 +4,10 @@ import WhoAuthToggle from "./components/whoAuthToggle"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import DeadLineTimer from "./components/deadlineTimer"
 
 let login = "admin", password = "admin"
-const authApi = 'http://web-project.somee.com/project/api/users/'
+const authApi = '/users/'
 
 const fillCheck = (setFill) => setFill({loginFill: !!login, passwordFill: !!password})
 
@@ -16,6 +17,7 @@ const Authorization = (props) => {
     const [student, setStudent] = useState(false)
     const [inputFill, setFill] = useState({loginFill: true, passwordFill: true})
     const [successLogin, setSuccess] = useState(true)
+    axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
 
     const navigate = useNavigate();
     useEffect(() => {if (isLogged()) navigate('/main')},[])
@@ -24,10 +26,8 @@ const Authorization = (props) => {
     const Auth = async () => {
         fillCheck((el) => { setFill(el) });
         if (login && password) {
-            let user = await axios.get(`${authApi + login}@${password}`).then(res => res.data).catch(err => console.log(err))
-            console.log(user)
-            
-            if (user && !!user.type === student) {
+            let user = await axios.get(`${authApi + login}@${password}`).then(res => res.data).catch(err => console.log(err))            
+            if (user && !!user.Type === student) {
                 localStorage.setItem('user', JSON.stringify(user))
                 navigate('/main')
             } else {
@@ -53,6 +53,7 @@ const Authorization = (props) => {
                 <button type="submit" className={`AuthButton ${!inputFill.passwordFill ? 'show' : ''}`}
                     onClick={() => Auth()}>Авторизоваться</button>
             </div>
+            <DeadLineTimer />
         </div>
     </form>
 }

@@ -4,10 +4,14 @@ import './Schedule.scss'
 import axios from "axios";
 
 const ScheduleItems = []
+
 const Schedule = () => {
   const [schedule, setSchedule] = useState(null)
-  const scheduleApiUrl = 'http://web-project.somee.com/project/api/schedule'
-
+  const actualWeek = (Math.ceil((Date.parse(new Date()) - Date.parse('Sep, 1, 2023'))/1000/60/60/24/7)%2) ? '1' : '2';
+  axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
+  
+  const scheduleApiUrl = `/schedule/${JSON.parse(localStorage.getItem('user')).Group}@${1}`
+  console.log(scheduleApiUrl)
   const insertData = () => {
     if (schedule && !ScheduleItems.length) {
       for (let i = 0; i < 5; i++) {
@@ -20,8 +24,9 @@ const Schedule = () => {
   }
 
   const fetchData = () => {
+    console.log(actualWeek)
     const respone = axios.get(scheduleApiUrl)
-    respone.then((res) => {setSchedule(res.data)})    
+    respone.then((res) => {setSchedule(res.data)}).catch(err => console.log(err))   
   }
 
   useEffect(fetchData,[]);

@@ -22,7 +22,7 @@ const MainPage = () => {
     return <div style={{width:"100%"}}>
         <Header />
         <Routes>
-            <Route path="/" element={JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).type ? <StudentsMainPage /> : <ProgrammTile /> : ""} />
+            <Route path="/" element={JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).Type ? <StudentsMainPage /> : <ProgrammTile /> : ""} />
             <Route path="/subject-labs" element={<StudentSubjectPage labList={labList}/>} />
             <Route path="/programm-edit-page" element={<ProgrammEditPage labList={labList}/>} />
         </Routes>
