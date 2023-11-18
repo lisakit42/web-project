@@ -10,7 +10,7 @@ const Schedule = () => {
   const actualWeek = (Math.ceil((Date.parse(new Date()) - Date.parse('Sep, 1, 2023'))/1000/60/60/24/7)%2) ? '1' : '2';
   axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
   
-  const scheduleApiUrl = `/schedule/${JSON.parse(localStorage.getItem('user')).Group}@${1}`
+  const scheduleApiUrl = `/schedule/${JSON.parse(localStorage.getItem('user')).Group}@${2}`
   console.log(scheduleApiUrl)
   const insertData = () => {
     if (schedule && !ScheduleItems.length) {

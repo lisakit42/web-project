@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom"
 import Schedule from "../../../components/Schedule/Schedule"
-import "./StudentsMainPage.scss"
+import "./StudentMainPage.scss"
 
-const StudentsMainPage = () => {
+const StudentMainPage = (props) => {
     const navigate = useNavigate()
-
+    props.history.push('Имя предмета')
     return <div className="studentMainPageWrapper">
         <div onClick={() => {navigate('./subject-labs')}} className="subjectNow">
             <p>Текущая пара:</p>
@@ -15,4 +15,4 @@ const StudentsMainPage = () => {
     </div>
 }
 
-export default StudentsMainPage;
+export default StudentMainPage;

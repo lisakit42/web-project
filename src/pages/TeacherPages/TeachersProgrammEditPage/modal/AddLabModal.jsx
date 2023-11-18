@@ -44,7 +44,6 @@ const AddLabModal = (props) => {
 
     const filledCheck = (event) => {
         const name = event.target.offsetParent.children[2].children[0]
-
     }
 
     return <div className='addModalWrapper' id='addLabModal' >

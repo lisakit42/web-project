@@ -11,7 +11,6 @@ const LabRow = (props) => {
 }
 
 const StudentSubjectPage = (props) => {
-    
     const navigate = useNavigate()
     return <div className="StudentSubjectPage">
         <div className="backButton" onClick={() => navigate('/.')}>←Назад</div>
