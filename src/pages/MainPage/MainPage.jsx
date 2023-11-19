@@ -1,5 +1,4 @@
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import ProgrammTile from "../TeacherPages/TeacherProgrammsPage/components/ProgrammTile/ProgrammTile";
 import StudentSubjectPage from "../StudentPages/StudentSubjectPage/StudentSubjectPage";
 import { useEffect } from "react";
 import Header from "./components/Header/Header";
@@ -7,6 +6,7 @@ import StudentsMainPage from "../StudentPages/StudentMainPage/StudentMainPage";
 import ProgrammEditPage from "../TeacherPages/TeacherProgrammEditPage/ProgrammEditPage";
 import TeacherMainPage from "../TeacherPages/TeacherMainPage/TeacherMainPage";
 import Navigator from "./components/Header/Navigator/Navigator";
+import TeacherProgrammsPage from "../TeacherPages/TeacherProgrammsList/TeacherProgrammsList";
 
 const labList = [
     {id:'1', startDate: '01.09.2023', title: 'Учимся писать в ворде', deadline: '01.09.2023', link: '', status: '1' },
@@ -29,7 +29,8 @@ const MainPage = () => {
         <Routes>
             <Route path="/" element={JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).Type ? <StudentsMainPage history={History} /> : <TeacherMainPage history={History} /> : ""} />
             <Route path="/subject-labs" element={<StudentSubjectPage labList={labList}/>} />
-            <Route path="/programm-edit-page" element={<ProgrammEditPage labList={labList}/>} />
+            <Route path="/programms-page" element={<TeacherProgrammsPage />} />
+            <Route path="/programm-edit-page" element={<ProgrammEditPage labList={labList} />} />
         </Routes>
     </div>
 }
