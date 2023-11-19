@@ -1,10 +1,10 @@
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import ProgrammTile from "../TeacherPages/TeachersProgrammsPage/components/ProgrammTile/ProgrammTile";
+import ProgrammTile from "../TeacherPages/TeacherProgrammsPage/components/ProgrammTile/ProgrammTile";
 import StudentSubjectPage from "../StudentPages/StudentSubjectPage/StudentSubjectPage";
 import { useEffect } from "react";
 import Header from "./components/Header/Header";
 import StudentsMainPage from "../StudentPages/StudentMainPage/StudentMainPage";
-import ProgrammEditPage from "../TeacherPages/TeachersProgrammEditPage/ProgrammEditPage";
+import ProgrammEditPage from "../TeacherPages/TeacherProgrammEditPage/ProgrammEditPage";
 import TeacherMainPage from "../TeacherPages/TeacherMainPage/TeacherMainPage";
 import Navigator from "./components/Header/Navigator/Navigator";
 
