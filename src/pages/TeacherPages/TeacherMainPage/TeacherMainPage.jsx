@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import Schedule from "../../../components/Schedule/Schedule"
 import "./TeacherMainPage.scss"
-import TeacherProgrammsPage from "../TeacherProgrammsList/TeacherProgrammsList"
+import TeacherProgrammsList from "../TeacherProgrammsList/TeacherProgrammsList"
 
 const TeacherMainPage = () => {
     const navigate = useNavigate()
@@ -14,7 +14,7 @@ const TeacherMainPage = () => {
             <p className="where">215зр</p>
         </div>
         <Schedule />
-        <TeacherProgrammsPage />
+        <TeacherProgrammsList />
     </div>
 }
 

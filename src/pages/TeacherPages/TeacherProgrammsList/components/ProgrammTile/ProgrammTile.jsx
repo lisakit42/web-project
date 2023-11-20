@@ -2,23 +2,21 @@ import Logo from "./KubsauLogo.svg"
 import "./ProgrammTile.scss"
 
 
-const ProgrammTile = () => {
+const ProgrammTile = (props) => {
     return <div className="TileWrapper">   
         <div className="mainText">
-            <p className="kurs">1 курс</p>
-            <p className="semestr">1 сем</p>
+            <p className="kurs">{props.programmInfo.course} курс</p>
+            <p className="semestr">{props.programmInfo.sem} сем</p>
         </div>
         <div className="middleText">
-            <p className="fac">ФПИ</p>
-            <p className="group">ИТ</p>
+            <p className="fac">{props.programmInfo.faculty}</p>
+            <p className="group">{props.programmInfo.group}</p>
         </div>
         <div className="botText">
-            <p className="num">15</p>
+            <p className="num">{props.programmInfo.labsCount}</p>
             <p>лабораторных работ</p>
         </div>
-        <div className="backLogo">
-            <img src={Logo} />
-        </div>
+        <img className="backLogo" src={Logo} />
     </div>
 }
 export default ProgrammTile
