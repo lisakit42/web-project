@@ -4,7 +4,6 @@ import "./StudentMainPage.scss"
 
 const StudentMainPage = (props) => {
     const navigate = useNavigate()
-    props.history.push('Имя предмета')
     return <div className="studentMainPageWrapper">
         <div onClick={() => {navigate('./subject-labs')}} className="subjectNow">
             <p>Текущая пара:</p>

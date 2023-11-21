@@ -1,15 +1,15 @@
 import ReactDOM from 'react-dom'
 import LabTableRow from './LabTableRow'
 import './ProgrammEditPage.scss'
-import { useState } from 'react'
-import uploadSvg from './svg/uploadFile.svg'
+import { useEffect, useState } from 'react'
 import AddLabModal from './modal/AddLabModal'
+import { useNavigate, useParams } from 'react-router-dom'
+
 
 const portal = document.getElementById('modal');
 
 const AddLab = (props) => {
-    const [isModalOpen, setModalOpen] = useState(true);
-    console.log(isModalOpen)
+    const [isModalOpen, setModalOpen] = useState(false);
     return <div>
         {isModalOpen && ReactDOM.createPortal(<AddLabModal count={props.count} setModalOpen={setModalOpen} />, portal)}
         <button className='addLabButton' onClick={() => { setModalOpen(true) }}>+Добавить лабу</button>
@@ -17,10 +17,14 @@ const AddLab = (props) => {
 }
 
 const ProgrammEditPage = (props) => {
+    const params = useParams();
+    const programm = props.programms.filter((el) => `${el.id}` === params.programmId)[0]
+    const navigate = useNavigate();
     return <div className="programmEditPageWrapper">
+        <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
         <div className="programmInfo">
-            <h1>1 курс 1 сем</h1>
-            <h5>Математический анализ</h5>
+            <h1>{`${programm.subject}`}</h1>
+            <h2>{`${programm.course} курс ${programm.sem} сем`}</h2>
         </div>
         <div className="greenLine"></div>
         <table className="labsTable">

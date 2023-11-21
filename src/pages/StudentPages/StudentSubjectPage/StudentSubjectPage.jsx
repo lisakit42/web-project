@@ -13,7 +13,7 @@ const LabRow = (props) => {
 const StudentSubjectPage = (props) => {
     const navigate = useNavigate()
     return <div className="StudentSubjectPage">
-        <div className="backButton" onClick={() => navigate('/.')}>←Назад</div>
+        <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
         <div className="LabsStatic">
             <h1>Разработка ПО</h1>
             <h5>Фамилия преподователя</h5>
