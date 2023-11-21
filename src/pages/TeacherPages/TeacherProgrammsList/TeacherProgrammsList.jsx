@@ -16,8 +16,7 @@ const TilesContainer = (props) => {
         temp.push(<ProgrammTile programmInfo={{ id: 31, subject: props.subject, course: info.sem.split(' ')[0], sem: info.sem.split(' ')[2], faculty: info.faculty, group: info.group, labsCount: 0 }} />)
         setTiles(temp)
     }
-    if (tiles[tiles.length - 1].type.name !== 'CreateProgrammTile') setTiles([...tiles, <CreateProgrammTile addTile={(info) => { addTile(info) }} />])
-
+    if (tiles[tiles.length - 1].type.name !== (<CreateProgrammTile />).type.name) setTiles([...tiles, <CreateProgrammTile addTile={(info) => { addTile(info) }} />])
     return <div className='subjectProgrammsWrapper' >
         <p>{props.subject}</p>
         <div className={'tilesWrapper ' + (props.tiles.length > 5 ? 'overflowed' : '')} style={expand ? { maxHeight: Math.ceil(props.tiles.length / 5) * 258 + 'px' } : {}}>

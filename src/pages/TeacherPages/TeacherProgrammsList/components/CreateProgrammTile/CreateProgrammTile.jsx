@@ -23,7 +23,6 @@ const CreateProgrammTile = (props) => {
     const facultySelectHandler = (event) => {
         setGroups(data.filter(el => el.faculty === event.target.value).map(el => el.groups)[0].map(el => <option value={el}>{el}</option>))
     }
-
     useEffect(() => { facultySelectHandler({ target: { value: data[0].faculty } }) }, [])
 
     return create ?
