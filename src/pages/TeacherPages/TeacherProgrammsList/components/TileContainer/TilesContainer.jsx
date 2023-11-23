@@ -1,0 +1,45 @@
+import { useState } from "react";
+import ProgrammTile from "../ProgrammTile/ProgrammTile";
+import CreateProgrammTile from "../CreateProgrammTile/CreateProgrammTile";
+import './TilesContainer.scss'
+
+
+
+const TilesContainer = (props) => {
+    const [expand, setExpand] = useState(false);
+    const [gap, setGap] = useState(0)
+    const gapInc = () => {
+        setGap(gap + 1)
+    }
+    const [tiles, setTiles] = useState(props.tiles.map((el) => <ProgrammTile tileIndex={el.props.tileIndex} programmInfo={el.props.programmInfo} gapInc={gapInc}/>))
+    console.log(tiles.length, gap)
+    const addTile = (info) => {
+        const temp = [...tiles]
+        temp.push(<ProgrammTile tileIndex={temp.length} programmInfo={
+            {
+                id: 31,
+                subject: props.subject,
+                course: info.sem.split(' ')[0],
+                sem: info.sem.split(' ')[2],
+                faculty: info.faculty,
+                group: info.group,
+                labsCount: 0
+            }} gapInc={gapInc}/>)
+        setTiles(temp)
+        console.log('addTile')
+    }
+
+    if (tiles[tiles.length - 1].type.name !== (<CreateProgrammTile />).type.name) setTiles([...tiles, <CreateProgrammTile addTile={addTile} />])
+
+    return <div className='subjectProgrammsWrapper' >
+        <p>{props.subject}</p>
+        <div className={'tilesWrapper ' + (tiles.length - gap > 5 ? 'overflowed' : '')} style={expand ? { maxHeight: Math.ceil((tiles.length - gap) / 5) * 262 + 'px' } : {}}>
+            {tiles}
+            <div className='expandButton' onClick={() => { setExpand(!expand) }}>
+                {expand ? 'Свернуть' : 'Развернуть'}
+            </div>
+        </div>
+    </div>
+}
+
+export default TilesContainer

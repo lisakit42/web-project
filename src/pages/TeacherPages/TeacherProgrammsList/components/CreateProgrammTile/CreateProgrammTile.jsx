@@ -47,7 +47,7 @@ const CreateProgrammTile = (props) => {
             <select id="group" onChange={el => { group = el.target.value }} name="group">
                 {filtGroups}
             </select>
-            <button onClick={() => { props.addTile({ id: 31, sem: sem, faculty: faculty, group: group }) }}>сохранить</button>
+            <button onClick={() => { props.addTile({ id: 31, sem: sem, faculty: faculty, group: group }) }}>Сохранить</button>
         </div>
         :
         <div onClick={() => { setCreate(true) }} className="createTileWrapper">
