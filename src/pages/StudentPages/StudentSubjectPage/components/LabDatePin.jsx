@@ -1,3 +1,4 @@
+import { useState } from "react"
 import "./LabsLine.scss"
 
 // status:
@@ -8,15 +9,16 @@ import "./LabsLine.scss"
 
 
 const LabDatePin = (props) => {
+    const [show, setShow] = useState(false)
+    setTimeout(() => { setShow(true) }, props.id * 500 + 200)
     return <div onClick={
-        () => {let el = document.getElementById(`${props.id}`)
-        el.scrollIntoView({block: "center", behavior: "smooth"})
-        el.classList.add("active")
-        setTimeout(() => {el.classList.remove("active")}, 1000)
-        
-        
-    }
-    } className={`PinWrapper ${props.status === '1' ? 'passed' : props.status === '2' ? 'npassed' : props.status === '3' ? 'lpassed' : props.status === '0' ? 'actual' : ''}`}>
+        () => {
+            let el = document.getElementById(`${props.id}`)
+            el.scrollIntoView({ block: "center", behavior: "smooth" })
+            el.classList.add("active")
+            setTimeout(() => { el.classList.remove("active") }, 1000)
+        }
+    } className={`PinWrapper ${show ? 'show' : ''} ${props.status === '1' ? 'passed' : props.status === '2' ? 'npassed' : props.status === '3' ? 'lpassed' : props.status === '0' ? 'actual' : ''}`}>
         <p className="deadline">{props.deadline}</p>
         <span className="circle" />
         <span className="stick" />

@@ -1,0 +1,108 @@
+.loadingWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .content {
+        position: relative;
+        width: 77px;
+        height: 140px;
+        .topWrapper {
+            position: absolute;
+            height: 110px;
+            overflow: hidden;
+            animation: show 1.5s ease-in-out infinite;
+            left: 0;
+            .top {
+                position: absolute;
+                animation: showLogo 1.5s ease-in-out infinite;
+                svg {
+                    fill: #ebebeb;
+                }
+            }
+        }
+
+        .bottomWrapper {
+            position: absolute;
+            top: 80px;
+            height: 60px;
+            overflow: hidden;
+            animation: show 1.5s 100ms ease-in-out infinite;
+            left: 0;
+
+            .bottom {
+                position: absolute;
+                animation: showLogo 1.5s 100ms ease-in-out infinite;
+                svg {
+                    fill: #ebebeb;
+                }
+            }
+        }
+        // .topStickWrapper {
+        //     position: absolute;
+        //     overflow: hidden;
+        //     width: 20px;
+        //     height: 19px;
+        //     top: 8px;
+        //     right: 8px;
+        //     // scale: 1.1;
+        //     animation: showStick 10s ease-in-out infinite;
+        //     .topStick {
+        //         position: absolute;
+        //         right: 0;
+        //         animation: showLogo 10s  ease-in-out infinite;
+        //     }
+        // }
+    }
+}
+
+@keyframes show {
+    from {
+        width: 0px
+    }
+
+    30%{
+        width: 77px;
+        left: 0;
+    }
+    70% {
+        left: auto;
+        width: 77px;
+        right: 0;
+    }
+    to {
+        left: auto;
+        width: 0px;
+        right: 0;
+    }
+}
+
+@keyframes showLogo {
+    from {
+        right: auto;
+    }
+    
+    to {
+        right: 0%;
+    }
+}
+
+@keyframes showStick {
+    from {
+        width: 0px
+    }
+
+    30%{
+        width: 17px;
+        left: 0;
+    }
+    70% {
+        left: auto;
+        width: 17px;
+        right: 0;
+    }
+    to {
+        left: auto;
+        width: 0px;
+        right: 0;
+    }
+}

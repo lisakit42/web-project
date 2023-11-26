@@ -2,16 +2,19 @@ import ScheduleItem from "./ScheduleItem/ScheduleItem";
 import React, { useEffect, useState } from 'react';
 import './Schedule.scss'
 import axios from "axios";
+import Loading from "../Loading/Loading";
 
 const ScheduleItems = []
 
 const Schedule = () => {
   const [schedule, setSchedule] = useState(null)
-  const actualWeek = (Math.ceil((Date.parse(new Date()) - Date.parse('Sep, 1, 2023'))/1000/60/60/24/7)%2) ? '1' : '2';
+  const actualWeek = (Math.ceil((Date.parse(new Date()) - Date.parse('Sep, 1, 2023')) / 1000 / 60 / 60 / 24 / 7) % 2) ? '1' : '2';
   axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
-  
-  const scheduleApiUrl = `/schedule/${3}@${2}`
+
+  const scheduleApiUrl = JSON.parse(localStorage.getItem('user')).Type ? `/schedule/${3}@${2}` : `/schedule/teachers/${JSON.parse(localStorage.getItem('user')).Id}`
   console.log(scheduleApiUrl)
+  console.log(schedule)
+
   const insertData = () => {
     if (schedule && !ScheduleItems.length) {
       for (let i = 0; i < 5; i++) {
@@ -26,14 +29,15 @@ const Schedule = () => {
   const fetchData = () => {
     console.log(actualWeek)
     const respone = axios.get(scheduleApiUrl)
-    respone.then((res) => {setSchedule(res.data)}).catch(err => console.log(err))   
+    respone.then((res) => { setSchedule(res.data) }).catch(err => console.log(err))
   }
 
-  useEffect(fetchData,[]);
+  useEffect(fetchData, []);
   insertData();
-  
+
   return <div className="scheduleWrapper">
-    {ScheduleItems}
+    
+    {schedule ? ScheduleItems : <Loading height='400' />}
   </div>
 }
 

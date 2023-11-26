@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import DeadLineTimer from "./components/deadlineTimer"
+import Loading from "../../components/Loading/Loading"
 
 let login = "admin", password = "admin"
 const authApi = '/users/'
@@ -17,6 +18,7 @@ const Authorization = (props) => {
     const [student, setStudent] = useState(false)
     const [inputFill, setFill] = useState({loginFill: true, passwordFill: true})
     const [successLogin, setSuccess] = useState(true)
+    const [loading, setLoading] = useState(false)
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
 
     const navigate = useNavigate();
@@ -26,12 +28,14 @@ const Authorization = (props) => {
     const Auth = async () => {
         fillCheck((el) => { setFill(el) });
         if (login && password) {
+            setLoading(true)
             let user = await axios.get(`${authApi + login}@${password}`).then(res => res.data).catch(err => console.log(err))            
             if (user && !!user.Type === student) {
                 localStorage.setItem('user', JSON.stringify(user))
                 navigate('/main')
             } else {
                 setSuccess(false);
+                setLoading(false)
             }
         }
     }
@@ -40,7 +44,7 @@ const Authorization = (props) => {
         <div className="Authorization">
             <img src={BigLogo} alt="" className="Logo" />
             <WhoAuthToggle student={student} setStudent={() => {setStudent(!student)}}/>
-            <div className="inputs">
+            {loading ? <Loading height='209'/> : <div className="inputs">
             <div className={`incorrectData ${!successLogin ? 'show' : ''}`}>Некорректные данные</div>
                 <div className="loginInputDiv">
                     <input type="text" placeholder="Логин" data-validate name="loginField" id="loginField" className="AuthField" onKeyUp={el => {if (el.key === 'Enter') Auth()}} onInput={ev => { login = ev.target.value; if (!inputFill.loginFill) setFill({...inputFill, loginFill: true}); if (!successLogin) setSuccess(true) }} />
@@ -52,7 +56,8 @@ const Authorization = (props) => {
                 </div>
                 <button type="submit" className={`AuthButton ${!inputFill.passwordFill ? 'show' : ''}`}
                     onClick={() => Auth()}>Авторизоваться</button>
-            </div>
+            </div>}
+            
             <DeadLineTimer />
         </div>
     </form>

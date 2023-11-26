@@ -11,7 +11,7 @@
     overflow: hidden;
     padding: 10px 15px;
     transition: all ease 200ms;
-
+    
     .mainText {
         width: 100%;
         font-size: 25px;
@@ -147,13 +147,12 @@
         width: 0;
         opacity: 0;
         padding: 10px 0;
-        display: none;
     } 
     
     to {
         margin: 0 -10px;
-        padding: 10px 0; 
+        padding: 10px 0;
+        opacity: 0;
         width: 0;
-        display: none;
     }
 }

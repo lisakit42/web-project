@@ -17,7 +17,7 @@ const TilesContainer = (props) => {
         const temp = [...tiles]
         temp.push(<ProgrammTile tileIndex={temp.length} programmInfo={
             {
-                id: 31,
+                Id: info.Id,
                 subject: props.subject,
                 course: info.sem.split(' ')[0],
                 sem: info.sem.split(' ')[2],
@@ -29,7 +29,7 @@ const TilesContainer = (props) => {
         console.log('addTile')
     }
 
-    if (tiles[tiles.length - 1].type.name !== (<CreateProgrammTile />).type.name) setTiles([...tiles, <CreateProgrammTile addTile={addTile} />])
+    if (tiles.length === 0 || tiles[tiles.length - 1].type.name !== (<CreateProgrammTile />).type.name) setTiles([...tiles, <CreateProgrammTile subject={props.subject} addTile={addTile} />])
 
     return <div className='subjectProgrammsWrapper' >
         <p>{props.subject}</p>

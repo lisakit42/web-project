@@ -1,11 +1,15 @@
 .subjectProgrammsWrapper {
     width: 1076px;
     margin-bottom: 60px;
+    animation: ContainerAppear2 500ms ease forwards;
+
     >p {
         font-size: 20px;
         margin-bottom: 10px;
     }
+
     .tilesWrapper {
+        animation: ContainerAppear 500ms ease;
         position: relative;
         display: flex;
         justify-content: left;
@@ -17,14 +21,17 @@
         border-radius: 26px;
         flex-wrap: wrap;
         overflow: hidden;
+        transition: ease 200ms;
+
         .expandButton {
             display: none;
         }
     }
-    
+
     .tilesWrapper.overflowed {
         max-height: 255px;
         transition: ease-in 600ms;
+
         .expandButton {
             display: block;
             opacity: 0;
@@ -36,11 +43,41 @@
             height: 22px;
             font-weight: 500;
             margin: 0 auto;
-            background: linear-gradient(0deg, rgb(204, 204, 204) 0%, rgba(225, 225, 225, 0.355) 50%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(0deg, rgb(204, 204, 204) 0%, rgba(225, 225, 225, 0.355) 50%, rgba(255, 255, 255, 0) 100%);
             transition: ease 200ms;
         }
+
         .expandButton:hover {
             opacity: 100;
         }
+    }
+}
+
+@keyframes ContainerAppear {
+    from {
+        height: 0;
+        opacity: 0;
+    }
+
+    to {
+        height: 240px;
+        opacity: 100%;
+    }
+}
+
+@keyframes ContainerAppear2 {
+    from {
+        margin-bottom: 0;
+        height: 0;
+    }
+
+    99% {
+        margin-bottom: 60px;
+        height: 308px;
+    }
+
+    to {
+        margin-bottom: 60px;
+        height: none;
     }
 }
