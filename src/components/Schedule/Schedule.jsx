@@ -12,9 +12,7 @@ const Schedule = () => {
   axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
 
   const scheduleApiUrl = JSON.parse(localStorage.getItem('user')).Type ? `/schedule/${3}@${2}` : `/schedule/teachers/${JSON.parse(localStorage.getItem('user')).Id}`
-  console.log(scheduleApiUrl)
-  console.log(schedule)
-
+  
   const insertData = () => {
     if (schedule && !ScheduleItems.length) {
       for (let i = 0; i < 5; i++) {
@@ -27,7 +25,6 @@ const Schedule = () => {
   }
 
   const fetchData = () => {
-    console.log(actualWeek)
     const respone = axios.get(scheduleApiUrl)
     respone.then((res) => { setSchedule(res.data) }).catch(err => console.log(err))
   }

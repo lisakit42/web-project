@@ -56,7 +56,7 @@ const AddLabModal = (props) => {
                 <div className="dateInputWrapper">
                     <label htmlFor="startDatePicker">Выберите дату начала:</label>
                     <br />
-                    <input type="date" onLoad={(el) => console.log(el)} min='2000-01-01' onInput={el => console.log(el)} id='startDatePicker' className='startDatePicker' />
+                    <input type="date" min='2000-01-01' onInput={el => console.log(el)} id='startDatePicker' className='startDatePicker' />
                 </div>
                 <div className="dateInputWrapper">
                     <label htmlFor="endDatePicker">Выберите дату дедлайна:</label>

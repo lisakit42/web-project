@@ -12,7 +12,7 @@ const TilesContainer = (props) => {
         setGap(gap + 1)
     }
     const [tiles, setTiles] = useState(props.tiles.map((el) => <ProgrammTile tileIndex={el.props.tileIndex} programmInfo={el.props.programmInfo} gapInc={gapInc}/>))
-    console.log(tiles.length, gap)
+
     const addTile = (info) => {
         const temp = [...tiles]
         temp.push(<ProgrammTile tileIndex={temp.length} programmInfo={
@@ -26,7 +26,6 @@ const TilesContainer = (props) => {
                 labsCount: 0
             }} gapInc={gapInc}/>)
         setTiles(temp)
-        console.log('addTile')
     }
 
     if (tiles.length === 0 || tiles[tiles.length - 1].type.name !== (<CreateProgrammTile />).type.name) setTiles([...tiles, <CreateProgrammTile subject={props.subject} addTile={addTile} />])

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import './CreateProgrammTile.scss'
 import plus from './img/plus.svg'
 import axios from 'axios';
+import Loading from '../../../../../components/Loading/Loading';
+import { compile } from 'sass';
 
 const data = [{
     faculty: 'ФПИ',
@@ -16,21 +18,32 @@ const data = [{
     groups: ['4', '5', '6']
 }]
 
-let sem = '1 курс 1 семестр', faculty = data[0].faculty, group = data[0].groups[0];
 const CreateProgrammTile = (props) => {
     const [create, setCreate] = useState(false)
-    const [filtGroups, setGroups] = useState([])
+    const [info, setInfo] = useState({ semestr: '1 курс 1 семестр', faculty: data[0].faculty, group: data[0].groups[0] })
+    const [loading, setLoading] = useState(false)
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
     const addProgrammApi = '/programm'
+    let groupsList = data.filter(el => el.faculty === info.faculty)[0].groups
 
-    const facultySelectHandler = (event) => {
-        setGroups(data.filter(el => el.faculty === event.target.value).map(el => el.groups)[0].map(el => <option value={el}>{el}</option>))
+    const SelectHandler = (event) => {
+        switch (event.target.id) {
+            case 'semestr':
+                setInfo({ ...info, semestr: event.target.value }); break;
+            case 'faculty':
+                setInfo({ ...info, faculty: event.target.value }); break;
+            case 'group':
+                setInfo({ ...info, group: event.target.value }); break;
+            default:
+                console.log('INCORRECT_INPUT'); break;
+        }
     }
-    useEffect(() => { facultySelectHandler({ target: { value: data[0].faculty } }) }, [])
-    console.log({ teacher_id: JSON.parse(localStorage.getItem('user')).Id, subject: props.subject, course: sem.split(' ')[0], sem: sem.split(' ')[2], faculty: faculty, group: group})
+
+    if (groupsList[0] !== info.group) setInfo({ ...info, group: groupsList[0] })
+
     return create ?
         <div className="TileWrapper create">
-            <select onChange={el => { sem = el.target.value }} onClick={(el) => { console.log(el.target.value) }} id="semestr" name="semestr">
+            <select id="semestr" onChange={SelectHandler} name="semestr">
                 <option value="1 курс 1 семестр">1 курс 1 семестр</option>
                 <option value="1 курс 2 семестр">1 курс 2 семестр</option>
                 <option value="2 курс 1 семестр">2 курс 1 семестр</option>
@@ -44,16 +57,19 @@ const CreateProgrammTile = (props) => {
                 <option value="6 курс 1 семестр">6 курс 1 семестр</option>
                 <option value="6 курс 2 семестр">6 курс 2 семестр</option>
             </select>
-            <select id="faculty" onChange={(el) => { facultySelectHandler(el); faculty = el.target.value }} name="faculty">
+            <select id="faculty" onChange={SelectHandler} name="faculty">
                 {data.map(el => <option value={el.faculty}>{el.faculty}</option>)}
             </select>
-            <select id="group" onChange={el => { group = el.target.value }} name="group">
-                {filtGroups}
+            <select id="group" onChange={SelectHandler} onSelect={() => { console.log('select') }} name="group">
+                {groupsList.map(el => <option value={el}>{el}</option>)}
             </select>
-            <button onClick={() => { axios.post(addProgrammApi, { teacher_id: JSON.parse(localStorage.getItem('user')).Id, subject: props.subject, course: sem.split(' ')[0], sem: sem.split(' ')[2], faculty: faculty, group: group}).then(res => props.addTile({ Id: res.data, sem: sem, faculty: faculty, group: group })).catch(err => console.log(err))}}>Сохранить</button>
+            <button onClick={() => { setLoading(true); axios.post(addProgrammApi, { teacher_id: JSON.parse(localStorage.getItem('user')).Id, subject: props.subject, course: info.semestr.split(' ')[0], sem: info.semestr.split(' ')[2], faculty: info.faculty, group: info.group }).then(res => props.addTile({ Id: res.data, sem: info.semestr, faculty: info.faculty, group: info.group })).catch(err => console.log(err)) }}>Сохранить</button>
+            <div className={`createLoadingWrapper ${loading ? 'show' : ''}`}>
+                <Loading />
+            </div>
         </div>
         :
-        <div onClick={(el) => { el.currentTarget.classList.add('close'); setTimeout(() => {setCreate(true)},100) }} className="createTileWrapper">
+        <div onClick={(el) => { el.currentTarget.classList.add('close'); setTimeout(() => { setCreate(true) }, 100) }} className="createTileWrapper">
             <img src={plus} alt='' className="plusButton"></img>
         </div>
 }

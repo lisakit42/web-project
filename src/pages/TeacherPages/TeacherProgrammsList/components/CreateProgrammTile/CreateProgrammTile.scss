@@ -42,7 +42,7 @@
     width: 150px;
     height: 200px;
 
-    :first-child {
+    #semestr {
         animation: selectAppear1 ease 400ms forwards;
     }
 
@@ -77,7 +77,21 @@
         background: rgb(223, 223, 223);
     }
 }
-
+.createLoadingWrapper {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.431);
+    animation: loadingShow ease 300ms forwards;
+}
+.createLoadingWrapper.show {
+    display: flex;
+}
 @keyframes createTileAppear {
     from {
         width: 0px;
@@ -145,5 +159,17 @@
         bottom: 20px;
         opacity: 100%;
         scale: 1;
+    }
+}
+
+@keyframes loadingShow {
+    from {
+        display: flex;
+        opacity: 0;
+    }   
+    
+    to {
+        display: flex;
+        opacity: 100%;
     }
 }

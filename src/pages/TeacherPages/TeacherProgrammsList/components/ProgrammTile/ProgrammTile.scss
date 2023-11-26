@@ -87,7 +87,7 @@
     top: -1px;
     overflow: hidden;
     animation: deleteWindowAppear ease 200ms forwards;
-    div {
+    .deletePreventButtons {
         margin: 20px auto;
         button {
             width: 70px;
