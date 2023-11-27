@@ -11,7 +11,7 @@ const LabFilePicker = () => {
         drag && setDrag(false)
     }
 
-    // в разработке
+    // в разработке (планировался список выбранных файлов с возможностью его редактирования)
     //
     // const deleteFile = (i) => {
     //     console.log('deleted for i = ' + i)
@@ -22,7 +22,7 @@ const LabFilePicker = () => {
         <h2>Файл:</h2>
         <label htmlFor='filePicker'>
             <span className={filesList.length ? "picked" : ""}>
-                <p>{filesList.length ? '✔' : drag ? <h2>Отпустите</h2> : `Нажмите на кнопку\nили\nперетащите файл`}</p>
+                <p>{filesList.length ? '✔' : drag ? <h2>Отпустите</h2> : `Нажмите здесь\nили\nперетащите файл`}</p>
                 <div className={`dragDiv ${drag ? "active" : ""}`}></div>
                 <div className="fileWrapper">
                     {filesList}
@@ -36,7 +36,8 @@ const LabFilePicker = () => {
 const AddLabModal = (props) => {
     let startDate, endDate, file;
     
-    const close = () => {
+    const close = (event) => {
+        console.log(event)
         let wrap = document.querySelector('.addModalWrapper');
         wrap.classList.add('disappear');
         setTimeout(() => { props.setModalOpen(false) }, 180)

@@ -18,7 +18,8 @@ const AddLab = (props) => {
 
 const ProgrammEditPage = (props) => {
     const params = useParams();
-    const programm = props.programms.filter((el) => `${el.id}` === params.programmId)[0]
+    // const programm = props.programms.filter((el) => `${el.id}` === params.programmId)[0]
+    const programm = {subject: 'Тест', course: 'Тест', sem: 'Тест'}
     const navigate = useNavigate();
     return <div className="programmEditPageWrapper">
         <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
