@@ -5,25 +5,32 @@ import TilesContainer from './components/TileContainer/TilesContainer';
 import axios from "axios";
 import Loading from '../../../components/Loading/Loading';
 
-let fetched = false;
 const TeacherProgrammsList = () => {
     const [programmsList, setProgrammsList] = useState([])
     const [subjectsList, setSubjects] = useState([])
     const [loading, setLoading] = useState(true)
+    const [fetched, setFetched] = useState(false)
     let choosedSubject = subjectsList[0];
 
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
     const TeacherProgrammsApiUrl = `/programm/${JSON.parse(localStorage.getItem('user')).Id}`
     const SubjectsListApiUrl = '/programm/subjects';
 
+    const fetchSubjects = async (tempData) => {
+        console.log(tempData)
+        await axios.get(SubjectsListApiUrl).then(res => { setSubjects(res.data.filter(subj => !tempData.filter(prog => subj === prog.subject).length)) })
+        setFetched(true)
+        setProgrammsList(listBuild(tempData))
+        setLoading(false)
+    }
     const fetchProgramms = async () => {
         let tempData;
-        await axios.get(TeacherProgrammsApiUrl).then(res => { tempData = res.data; console.log(tempData) ;setProgrammsList(listBuild(res.data)); setLoading(false) }).catch(err => console.log(err))
-        await axios.get(SubjectsListApiUrl).then(res => { setSubjects(res.data.filter(subj => !tempData.filter(prog => subj === prog.subject).length)) })
-        fetched = true;
+        await axios.get(TeacherProgrammsApiUrl).then(res => { tempData = res.data }).catch(err => console.log(err))
+        fetchSubjects(tempData);
     }
 
-    if (!fetched) fetchProgramms()
+    if (!fetched) fetchProgramms();
+
 
     const listBuild = (programms) => {
         const programmsList = []
