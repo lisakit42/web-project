@@ -23,6 +23,7 @@ const TeacherProgrammsList = () => {
         setProgrammsList(listBuild(tempData))
         setLoading(false)
     }
+    
     const fetchProgramms = async () => {
         let tempData;
         await axios.get(TeacherProgrammsApiUrl).then(res => { tempData = res.data }).catch(err => console.log(err))
@@ -52,7 +53,7 @@ const TeacherProgrammsList = () => {
             <select onChange={el => { choosedSubject = el.target.value }} name="" id="">
                 {subjectsList.map((el, i) => <option key={`subject-${i}`} value={el}>{el}</option>)}
             </select>
-            <button onClick={(el) => { setProgrammsList([...programmsList, <TilesContainer subject={choosedSubject} tiles={[]} />]); setSubjects(subjectsList.filter(subj => subj !== choosedSubject)) }}>Добавить предмет</button>
+            <button disabled={!subjectsList.length} onClick={(el) => { setProgrammsList([...programmsList, <TilesContainer subject={choosedSubject} tiles={[]} />]); setSubjects(subjectsList.filter(subj => subj !== choosedSubject)) }}>Добавить предмет</button>
         </div>
     </div>
 }

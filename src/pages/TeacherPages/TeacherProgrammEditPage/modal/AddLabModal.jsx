@@ -1,6 +1,7 @@
 import { useState } from "react"
 import LabNameInput from "./components/LabNameInput"
 import axios from "axios"
+import DateInput from "./components/DateInput"
 
 const LabFilePicker = (props) => {
     const [drag, setDrag] = useState(false)
@@ -38,7 +39,7 @@ const LabFilePicker = (props) => {
     </form>
 }
 
-const labInfo = { name: '', beginDate: '', deadline: '', file: ''};
+const labInfo = { name: '', beginDate: '', deadline: '', file: '' };
 
 const AddLabModal = (props) => {
 
@@ -57,11 +58,11 @@ const AddLabModal = (props) => {
     }
 
     const postLab = (labInfo) => {
-        console.log({...labInfo, beginDate: '2023-11-17T00:00:00', deadline: '2023-11-18T00:00:00', programmId: 1})
-        const json = {name: labInfo.name, beginDate: '2023-11-17T00:00:00', deadline: '2023-11-18T00:00:00', programmId: 1}
+        console.log({ ...labInfo, deadline: '2023-11-18T00:00:00', programmId: 1 })
+        const json = { name: labInfo.name, beginDate: '2023-11-17T00:00:00', deadline: '2023-11-18T00:00:00', programmId: 1 }
         const formData = new FormData();
         formData.append('Json', JSON.stringify(json))
-        formData.append('File', labInfo.file )
+        formData.append('File', labInfo.file)
         axios.post(postLabApi, formData).then(res => console.log(res)).catch(err => console.log(err))
     }
 
@@ -69,19 +70,11 @@ const AddLabModal = (props) => {
         <span onClick={close} style={{ position: 'absolute', width: '100%', height: '100%' }}></span>
         <div className='addLabModal' >
             <span className='closeButton' onClick={close}>Закрыть</span>
-            <h1>Добавить лабораторную работу №{props.count}</h1>
+            <h1>Добавить лабораторную работу №{props.count + 1}</h1>
             <LabNameInput labInfo={labInfo} />
-            <div className='dateInputs'>
-                <div className="dateInputWrapper">
-                    <label htmlFor="startDatePicker">Выберите дату начала:</label>
-                    <br />
-                    <input type="date" min='2000-01-01' onInput={el => console.log(new Date(el.target.valueAsDate).getDate())} id='startDatePicker' className='startDatePicker' />
-                </div>
-                <div className="dateInputWrapper">
-                    <label htmlFor="endDatePicker">Выберите дату дедлайна:</label>
-                    <br />
-                    <input type="date" min='2000-01-01' id='endDatePicker' className='startDatePicker' />
-                </div>
+            <div className='dateInputsWrapper'>
+                <DateInput type='start' />
+                <DateInput type='end' />
             </div>
             <LabFilePicker labInfo={labInfo} />
             <button onClick={() => { postLab(labInfo) }} className="saveButton">Сохранить</button>

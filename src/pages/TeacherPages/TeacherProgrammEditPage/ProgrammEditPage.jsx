@@ -4,6 +4,8 @@ import './ProgrammEditPage.scss'
 import { useEffect, useState } from 'react'
 import AddLabModal from './modal/AddLabModal'
 import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
+import Loading from '../../../components/Loading/Loading'
 
 
 const portal = document.getElementById('modal');
@@ -18,17 +20,24 @@ const AddLab = (props) => {
 
 const ProgrammEditPage = (props) => {
     const params = useParams();
-    // const programm = props.programms.filter((el) => `${el.id}` === params.programmId)[0]
-    const programm = {subject: 'Тест', course: 'Тест', sem: 'Тест'}
+    const [info, setInfo] = useState({f: 'f'})
+    axios.defaults.baseURL = 'http://web-project.somee.com/project/api';
+
+    const getProgrammApi = `/lab/${JSON.parse(localStorage.getItem('user')).Id}/${params.programmId}`;
+    const fetchProgramm = async () => {
+        await axios.get(getProgrammApi).then(res => {console.log(res.data);setInfo(res.data)}).catch(err => console.log(err))
+    }
+    useEffect(() => { fetchProgramm() }, [])
     const navigate = useNavigate();
+
     return <div className="programmEditPageWrapper">
         <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
-        <div className="programmInfo">
-            <h1>{`${programm.subject}`}</h1>
-            <h2>{`${programm.course} курс ${programm.sem} сем`}</h2>
-        </div>
+        {info.f ? <Loading height='187' /> : info.subject ? <div className="programmInfo">
+            <h1>{`${info.subject}`}</h1>
+            <h2>{`${info.course} курс ${info.sem} сем`}</h2>
+        </div> : <div style={{margin: '0 auto', marginTop: '73px', marginBottom: '29px'}}><h1 style={{fontSize: '70px'}}>404 Not foung</h1></div> }
         <div className="greenLine"></div>
-        <table className="labsTable">
+        {info.f ? <Loading /> : info.subject ? <table className="labsTable">
             <thead>
                 <tr>
                     <th>№</th>
@@ -38,10 +47,10 @@ const ProgrammEditPage = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {props.labList.map((el) => <LabTableRow id={el.id} title={el.title} startDate={el.startDate} deadline={el.deadline} />)}
+                {info.subject && info.subject.length && info.labs.map((el, i) => <LabTableRow number={i + 1} id={el.id} title={el.name} startDate={el.beginDate} deadline={el.deadline} link={el.link}/>)}
             </tbody>
-        </table>
-        <AddLab count={props.labList.length} />
+        </table> : null }
+        {info.f ? null : info.subject ?  <AddLab count={props.labList.length} /> : null}
     </div>
 }
 
