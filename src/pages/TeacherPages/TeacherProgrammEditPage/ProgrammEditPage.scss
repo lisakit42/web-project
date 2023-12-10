@@ -51,17 +51,24 @@
 
                 :nth-child(2) {
                     padding-left: 10px;
+                    width: 60%;
                 }
 
                 :nth-child(n+3) {
-                    width: 150px;
+
                     text-align: center;
                 }
 
                 :nth-child(5) {
-                    width: 117px;
+                    width: 80px;
                 }
             }
+        }
+
+        .downloadSvg {
+            width: 30px;
+            height: 40px;
+
         }
     }
 
@@ -127,21 +134,25 @@
                 position: absolute;
                 top: 0;
                 bottom: 0;
-                
+
             }
 
             .loadingWrapper.success {
                 animation: successUpload 2s ease forwards;
+
                 .topWrapper {
                     width: 100%;
                     animation: s !important;
+
                     .top {
                         animation: s !important;
                     }
                 }
+
                 .bottomWrapper {
                     width: 100%;
                     animation: s !important;
+
                     .bottom {
                         animation: s !important;
                     }

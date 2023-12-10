@@ -44,13 +44,15 @@ const ProgrammEditPage = () => {
                     <th>Имя лабораторной работы</th>
                     <th>Начало</th>
                     <th>Дедлайн</th>
+                    <th>Файл</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {info.subject && info.subject.length && info.labs.map((el, i) => <LabTableRow number={i + 1} id={el.id} title={el.name} startDate={el.beginDate} deadline={el.deadline} link={el.link} />)}
             </tbody>
         </table> : null}
-        {info.f ? null : info.subject ? <AddLab count={info.labs.length} programmId={params.programmId} addLab={(lab) => {setInfo({...info, labs: [...info.labs, lab]})}} /> : null}
+        {info.f ? null : info.subject ? <AddLab count={info.labs.length} programmId={params.programmId} addLab={(lab) => { setInfo({ ...info, labs: [...info.labs, lab] }) }} /> : null}
     </div>
 }
 
