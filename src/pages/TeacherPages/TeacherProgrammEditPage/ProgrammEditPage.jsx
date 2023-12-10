@@ -13,29 +13,30 @@ const portal = document.getElementById('modal');
 const AddLab = (props) => {
     const [isModalOpen, setModalOpen] = useState(false);
     return <div>
-        {isModalOpen && ReactDOM.createPortal(<AddLabModal count={props.count} setModalOpen={setModalOpen} />, portal)}
+        {isModalOpen && ReactDOM.createPortal(<AddLabModal count={props.count} setModalOpen={setModalOpen} programmId={props.programmId} />, portal)}
         <button className='addLabButton' onClick={() => { setModalOpen(true) }}>+Добавить лабу</button>
     </div>
 }
 
-const ProgrammEditPage = (props) => {
+const ProgrammEditPage = () => {
     const params = useParams();
-    const [info, setInfo] = useState({f: 'f'})
+    const [info, setInfo] = useState({ f: 'f' })
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api';
 
     const getProgrammApi = `/lab/${JSON.parse(localStorage.getItem('user')).Id}/${params.programmId}`;
     const fetchProgramm = async () => {
-        await axios.get(getProgrammApi).then(res => {console.log(res.data);setInfo(res.data)}).catch(err => console.log(err))
+        await axios.get(getProgrammApi).then(res => { console.log(res.data); setInfo(res.data) }).catch(err => console.log(err))
     }
+
     useEffect(() => { fetchProgramm() }, [])
     const navigate = useNavigate();
-
+    console.log(info)
     return <div className="programmEditPageWrapper">
         <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
         {info.f ? <Loading height='187' /> : info.subject ? <div className="programmInfo">
             <h1>{`${info.subject}`}</h1>
             <h2>{`${info.course} курс ${info.sem} сем`}</h2>
-        </div> : <div style={{margin: '0 auto', marginTop: '73px', marginBottom: '29px'}}><h1 style={{fontSize: '70px'}}>404 Not foung</h1></div> }
+        </div> : <div style={{ margin: '0 auto', marginTop: '73px', marginBottom: '29px' }}><h1 style={{ fontSize: '70px' }}>404 Not foung</h1></div>}
         <div className="greenLine"></div>
         {info.f ? <Loading /> : info.subject ? <table className="labsTable">
             <thead>
@@ -47,10 +48,10 @@ const ProgrammEditPage = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {info.subject && info.subject.length && info.labs.map((el, i) => <LabTableRow number={i + 1} id={el.id} title={el.name} startDate={el.beginDate} deadline={el.deadline} link={el.link}/>)}
+                {info.subject && info.subject.length && info.labs.map((el, i) => <LabTableRow number={i + 1} id={el.id} title={el.name} startDate={el.beginDate} deadline={el.deadline} link={el.link} />)}
             </tbody>
-        </table> : null }
-        {info.f ? null : info.subject ?  <AddLab count={props.labList.length} /> : null}
+        </table> : null}
+        {info.f ? null : info.subject ? <AddLab count={info.labs.length} programmId={params.programmId} /> : null}
     </div>
 }
 

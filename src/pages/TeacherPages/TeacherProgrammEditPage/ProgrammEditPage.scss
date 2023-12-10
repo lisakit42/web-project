@@ -159,13 +159,8 @@
 
         .dateInputsWrapper {
             display: flex;
-            gap: 20%;
+            gap: 10%;
             width: 80%;
-            .dateInputs {
-                input {
-                    width: 20px;
-                }
-            }
         }
 
         .labFilePickerWrapper {
@@ -274,6 +269,13 @@
             font-size: 18px;
 
         }
+    }
+}
+
+.react-datepicker-wrapper {
+    
+    input {
+        width: calc(100% - 37px);
     }
 }
 

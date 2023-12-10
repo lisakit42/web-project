@@ -14,7 +14,7 @@ const TeacherMainPage = (props) => {
             <p className="where">215зр</p>
         </div>
         <Schedule />
-        <TeacherProgrammsList programms={props.programms} />
+        <TeacherProgrammsList setProgramm={(el) => {props.setProgramm(el)}} programms={props.programms} />
     </div>
 }
 

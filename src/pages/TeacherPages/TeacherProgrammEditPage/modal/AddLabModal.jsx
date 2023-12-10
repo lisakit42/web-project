@@ -2,17 +2,17 @@ import { useState } from "react"
 import LabNameInput from "./components/LabNameInput"
 import axios from "axios"
 import DateInput from "./components/DateInput"
+import ReactDatePicker, { registerLocale } from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import ru from "date-fns/locale/ru"
 
 const LabFilePicker = (props) => {
     const [drag, setDrag] = useState(false)
     const [filesList, setFilesList] = useState([])
     // const [deleteButtons, setDeletes] = useState([])
     const selectFn = (event) => {
-        let formData = new FormData();
-        formData.set('file', event.target.files[0])
-        console.log(formData)
         setFilesList(Array.from(event.target.files).map((el, i) => el = <p>{el.name}</p>))
-        props.labInfo.file = event.target.files[0];
+        props.setFile(event.target.files[0])
         // setDeletes(filesList.map((el, i) => el = <span onClick={() => {deleteFile(i)}}>x</span>))
         drag && setDrag(false)
     }
@@ -27,11 +27,11 @@ const LabFilePicker = (props) => {
     return <form className='labFilePickerWrapper'>
         <h2>Файл:</h2>
         <label htmlFor='filePicker'>
-            <span className={filesList.length ? "picked" : ""}>
-                <p>{filesList.length ? '✔' : drag ? <h2>Отпустите</h2> : `Нажмите здесь\nили\nперетащите файл`}</p>
+            <span className={props.file ? "picked" : ""}>
+                <p>{props.file ? '✔' : drag ? <h2>Отпустите</h2> : `Нажмите здесь\nили\nперетащите файл`}</p>
                 <div className={`dragDiv ${drag ? "active" : ""}`}></div>
                 <div className="fileWrapper">
-                    {filesList}
+                    {props.file ? [<p>{props.file.name}</p>] : ''}
                 </div>
             </span>
         </label>
@@ -42,6 +42,12 @@ const LabFilePicker = (props) => {
 const labInfo = { name: '', beginDate: '', deadline: '', file: '' };
 
 const AddLabModal = (props) => {
+    const [beginDate, setBeginDate] = useState(new Date())
+    const [deadline, setDeadline] = useState(new Date())
+    const [file, setFile] = useState()
+    const [name, setName] = useState()
+
+    registerLocale('ru', ru)
 
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
     const postLabApi = '/lab'
@@ -54,15 +60,15 @@ const AddLabModal = (props) => {
     }
 
     const filledCheck = (event) => {
-        const name = event.target.offsetParent.children[2].children[0]
+        
     }
 
-    const postLab = (labInfo) => {
-        console.log({ ...labInfo, deadline: '2023-11-18T00:00:00', programmId: 1 })
-        const json = { name: labInfo.name, beginDate: '2023-11-17T00:00:00', deadline: '2023-11-18T00:00:00', programmId: 1 }
+    console.log({beginDate: beginDate, deadline: deadline, file:file, name: name})
+    const postLab = () => {
+        const json = { name: name, beginDate: beginDate, deadline: deadline, programmId: props.programmId }
         const formData = new FormData();
         formData.append('Json', JSON.stringify(json))
-        formData.append('File', labInfo.file)
+        formData.append('File', file)
         axios.post(postLabApi, formData).then(res => console.log(res)).catch(err => console.log(err))
     }
 
@@ -71,13 +77,19 @@ const AddLabModal = (props) => {
         <div className='addLabModal' >
             <span className='closeButton' onClick={close}>Закрыть</span>
             <h1>Добавить лабораторную работу №{props.count + 1}</h1>
-            <LabNameInput labInfo={labInfo} />
+            <LabNameInput setName={setName} name={name}/>
             <div className='dateInputsWrapper'>
-                <DateInput type='start' />
-                <DateInput type='end' />
+                <div className="beginDatePicker">
+                    <p>Дата начала:</p>
+                    <ReactDatePicker dateFormat='dd.MM.yyyy' locale='ru' showIcon selected={beginDate} onChange={date => {setBeginDate(date)}}/>
+                </div>
+                <div className="beginDatePicker">
+                    <p>Дата окончания:</p>
+                    <ReactDatePicker dateFormat='dd.MM.yyyy' locale='ru' showIcon selected={deadline} onChange={date => {setDeadline(date)}} />
+                </div>
             </div>
-            <LabFilePicker labInfo={labInfo} />
-            <button onClick={() => { postLab(labInfo) }} className="saveButton">Сохранить</button>
+            <LabFilePicker setFile={setFile} file={file}/>
+            <button onClick={() => { postLab() }} className="saveButton">Сохранить</button>
         </div>
     </div>
 }
