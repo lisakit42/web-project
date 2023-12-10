@@ -68,9 +68,17 @@
     .addLabButton {
         width: 200px;
         height: 40px;
+        border: none;
+        box-shadow: 0 0 10px 2px rgba(129, 129, 129, 0.457);
         border-radius: 10px;
+        background: rgb(244, 244, 244);
         font-size: 18px;
         font-style: italic;
+        font-weight: 500;
+        transition: ease 200ms;
+    }
+    .addLabButton:hover {
+        background: rgb(233, 233, 233);
     }
 }
 
@@ -281,7 +289,6 @@
 
 .addModalWrapper.disappear {
     animation: disappear ease-in 200ms;
-
     .addLabModal {
         animation: downup ease-in 200ms;
     }

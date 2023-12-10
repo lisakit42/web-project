@@ -13,7 +13,7 @@ const portal = document.getElementById('modal');
 const AddLab = (props) => {
     const [isModalOpen, setModalOpen] = useState(false);
     return <div>
-        {isModalOpen && ReactDOM.createPortal(<AddLabModal count={props.count} setModalOpen={setModalOpen} programmId={props.programmId} />, portal)}
+        {isModalOpen && ReactDOM.createPortal(<AddLabModal addLab={props.addLab} count={props.count} setModalOpen={setModalOpen} programmId={props.programmId} />, portal)}
         <button className='addLabButton' onClick={() => { setModalOpen(true) }}>+Добавить лабу</button>
     </div>
 }
@@ -30,7 +30,6 @@ const ProgrammEditPage = () => {
 
     useEffect(() => { fetchProgramm() }, [])
     const navigate = useNavigate();
-    console.log(info)
     return <div className="programmEditPageWrapper">
         <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
         {info.f ? <Loading height='187' /> : info.subject ? <div className="programmInfo">
@@ -51,7 +50,7 @@ const ProgrammEditPage = () => {
                 {info.subject && info.subject.length && info.labs.map((el, i) => <LabTableRow number={i + 1} id={el.id} title={el.name} startDate={el.beginDate} deadline={el.deadline} link={el.link} />)}
             </tbody>
         </table> : null}
-        {info.f ? null : info.subject ? <AddLab count={info.labs.length} programmId={params.programmId} /> : null}
+        {info.f ? null : info.subject ? <AddLab count={info.labs.length} programmId={params.programmId} addLab={(lab) => {setInfo({...info, labs: [...info.labs, lab]})}} /> : null}
     </div>
 }
 

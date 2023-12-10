@@ -1,7 +1,6 @@
 import { useState } from "react"
 import LabNameInput from "./components/LabNameInput"
 import axios from "axios"
-import DateInput from "./components/DateInput"
 import ReactDatePicker, { registerLocale } from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import ru from "date-fns/locale/ru"
@@ -39,8 +38,6 @@ const LabFilePicker = (props) => {
     </form>
 }
 
-const labInfo = { name: '', beginDate: '', deadline: '', file: '' };
-
 const AddLabModal = (props) => {
     const [beginDate, setBeginDate] = useState(new Date())
     const [deadline, setDeadline] = useState(new Date())
@@ -50,7 +47,7 @@ const AddLabModal = (props) => {
     registerLocale('ru', ru)
 
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
-    const postLabApi = '/lab'
+    const postLabApi = `/lab/${props.programmId}`
 
     const close = (event) => {
         console.log(event)
@@ -58,37 +55,39 @@ const AddLabModal = (props) => {
         wrap.classList.add('disappear');
         setTimeout(() => { props.setModalOpen(false) }, 180)
     }
-
-    const filledCheck = (event) => {
-        
+    const filledCheck = () => {
+        return !!(name && file && beginDate && deadline)
     }
 
-    console.log({beginDate: beginDate, deadline: deadline, file:file, name: name})
     const postLab = () => {
-        const json = { name: name, beginDate: beginDate, deadline: deadline, programmId: props.programmId }
-        const formData = new FormData();
-        formData.append('Json', JSON.stringify(json))
-        formData.append('File', file)
-        axios.post(postLabApi, formData).then(res => console.log(res)).catch(err => console.log(err))
+        if (filledCheck()) {
+            
+            const json = { name: name, beginDate: beginDate, deadline: deadline, programmId: props.programmId }
+            const formData = new FormData();
+            formData.append('Json', JSON.stringify(json))
+            formData.append('File', file)
+            axios.post(postLabApi, formData).then(res => {props.addLab({name: json.name, beginDate: json.beginDate, deadline: json.deadline, link: res.data}); close()}).catch(err => console.log(err))
+        }
+        else {alert('Заполните все поля')}
     }
-
+    console.log(props.labs)
     return <div className='addModalWrapper' id='addLabModal' >
         <span onClick={close} style={{ position: 'absolute', width: '100%', height: '100%' }}></span>
         <div className='addLabModal' >
             <span className='closeButton' onClick={close}>Закрыть</span>
             <h1>Добавить лабораторную работу №{props.count + 1}</h1>
-            <LabNameInput setName={setName} name={name}/>
+            <LabNameInput setName={setName} name={name} />
             <div className='dateInputsWrapper'>
                 <div className="beginDatePicker">
                     <p>Дата начала:</p>
-                    <ReactDatePicker dateFormat='dd.MM.yyyy' locale='ru' showIcon selected={beginDate} onChange={date => {setBeginDate(date)}}/>
+                    <ReactDatePicker dateFormat='dd.MM.yyyy' locale='ru' showIcon selected={beginDate} onChange={date => { setBeginDate(date) }} />
                 </div>
                 <div className="beginDatePicker">
                     <p>Дата окончания:</p>
-                    <ReactDatePicker dateFormat='dd.MM.yyyy' locale='ru' showIcon selected={deadline} onChange={date => {setDeadline(date)}} />
+                    <ReactDatePicker dateFormat='dd.MM.yyyy' locale='ru' showIcon selected={deadline} onChange={date => { setDeadline(date) }} />
                 </div>
             </div>
-            <LabFilePicker setFile={setFile} file={file}/>
+            <LabFilePicker setFile={setFile} file={file} />
             <button onClick={() => { postLab() }} className="saveButton">Сохранить</button>
         </div>
     </div>
