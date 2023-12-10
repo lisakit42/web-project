@@ -77,6 +77,7 @@
         font-weight: 500;
         transition: ease 200ms;
     }
+
     .addLabButton:hover {
         background: rgb(233, 233, 233);
     }
@@ -103,6 +104,54 @@
         padding: 60px;
         background: white;
         animation: updown 400ms ease-out;
+        overflow: hidden;
+
+        .postLoading {
+            display: none;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+        }
+
+        .postLoading.active {
+            display: flex;
+            z-index: 2;
+            opacity: 100;
+            background: #00000080;
+            animation: appear 200ms ease;
+
+            .loadingWrapper {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                
+            }
+
+            .loadingWrapper.success {
+                animation: successUpload 2s ease forwards;
+                .topWrapper {
+                    width: 100%;
+                    animation: s !important;
+                    .top {
+                        animation: s !important;
+                    }
+                }
+                .bottomWrapper {
+                    width: 100%;
+                    animation: s !important;
+                    .bottom {
+                        animation: s !important;
+                    }
+                }
+            }
+
+            .content {
+                animation: updown 300ms;
+            }
+        }
 
         .closeButton {
             position: absolute;
@@ -275,13 +324,12 @@
             height: 40px;
             border-radius: 20px;
             font-size: 18px;
-
         }
     }
 }
 
 .react-datepicker-wrapper {
-    
+
     input {
         width: calc(100% - 37px);
     }
@@ -289,6 +337,7 @@
 
 .addModalWrapper.disappear {
     animation: disappear ease-in 200ms;
+
     .addLabModal {
         animation: downup ease-in 200ms;
     }
@@ -341,5 +390,37 @@
 
     to {
         top: -85px;
+    }
+}
+
+@keyframes successUpload {
+    from {
+        top: 0;
+        scale: 1;
+    }
+
+    20% {
+        top: -30px;
+        scale: 1.5;
+        transform: scaleY(1);
+    }
+
+    35% {
+        scale: 1;
+        transform: scaleY(1.2);
+    }
+
+    40% {
+        transform: scaleY(1.4);
+        top: 200px;
+    }
+
+    45% {
+        top: 210px;
+    }
+
+    to {
+        transform: scaleY(0.5);
+        top: -3000px;
     }
 }

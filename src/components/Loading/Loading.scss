@@ -15,9 +15,7 @@
             .top {
                 position: absolute;
                 animation: showLogo 1.5s ease-in-out infinite!important;
-                svg {
-                    fill: #ebebeb;
-                }
+                
             }
         }
 
@@ -32,9 +30,6 @@
             .bottom {
                 position: absolute;
                 animation: showLogo 1.5s 100ms ease-in-out infinite!important;
-                svg {
-                    fill: #ebebeb;
-                }
             }
         }
         // .topStickWrapper {

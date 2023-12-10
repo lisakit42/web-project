@@ -11,7 +11,7 @@ const MainPage = () => {
     const navigate = useNavigate()
     useEffect(() => { if (!localStorage.getItem('user')) navigate('/') }, [])
 
-    return <div style={{ width: "100%" }}>
+    return <div style={{ width: "100%", paddingBottom:'120px' }}>
         <Header />
         <Routes>
             <Route path="/" element={JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).Type ? <StudentsMainPage /> : <TeacherMainPage /> : ""} />
