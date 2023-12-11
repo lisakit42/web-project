@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: createTileAppear 200ms ease-in-out;
-    opacity: 100%;
+    animation: createTileAppear 200ms ease-in-out forwards;
+    opacity: 0;
     scale: 1;
     width: 150px;
     padding: 20px;
@@ -13,6 +13,7 @@
     border: 1px solid #9B9B9B;
     border-radius: 26px;
     transition: ease 200ms;
+
     .plusButton {
         display: flex;
         justify-content: center;
@@ -28,12 +29,20 @@
     }
 }
 
+.createTileWrapper.afterClose {
+    opacity: 100;
+    animation: s !important;
+
+    .plusButton {
+        animation: createAfterClose ease 400ms forwards;
+    }
+}
+
 .createTileWrapper:hover {
-    // background: rgba(248, 248, 248, 0.48);
     box-shadow: inset 0 0 10px 10px rgba(137, 137, 137, 0.371);
 }
 
-.createTileWrapper.close {
+.createTileWrapper.hide {
     opacity: 0;
 }
 
@@ -41,6 +50,25 @@
     padding: 20px;
     width: 150px;
     height: 200px;
+    background: #f8f8f8;
+
+    .cancelButton {
+        position: absolute;
+        top: -21px;
+        border-radius: 0;
+        border: none;
+        font-size: 12px;
+        width: calc(100% + 2px);
+        background: transparent;
+        left: -1px;
+        right: 0;
+        height: 20px;
+    }
+
+    .cancelButton:hover {
+        background: #ff3d3dc5;
+        color: white;
+    }
 
     #semestr {
         animation: selectAppear1 ease 400ms forwards;
@@ -53,11 +81,14 @@
         width: 150px;
         font-weight: 500;
         border-radius: 10px;
-        padding: 4px;    
-        animation: selectAppear2 ease 300ms forwards;
+        padding: 4px;
     }
 
-    :nth-child(3n) {
+    #faculty {
+        animation: selectAppear2 ease 300ms forwards
+    }
+
+    #group {
         animation: selectAppear3 ease 500ms forwards;
     }
 
@@ -77,6 +108,36 @@
         background: rgb(223, 223, 223);
     }
 }
+
+.TileWrapper.create:hover {
+    .cancelButton {
+        top: -1px
+    }
+}
+
+.TileWrapper.create.cancel {
+    .cancelButton {
+        top: -21px;
+        opacity: 0;
+    }
+
+    #semestr {
+        animation: selectClose1 ease 400ms forwards;
+    }
+
+    #faculty {
+        animation: selectClose2 ease 400ms forwards;
+    }
+
+    #group {
+        animation: selectClose3 ease 400ms forwards;
+    }
+
+    button {
+        animation: buttonClose ease 400ms forwards;
+    }
+}
+
 .createLoadingWrapper {
     position: absolute;
     display: none;
@@ -89,9 +150,11 @@
     background: rgba(0, 0, 0, 0.431);
     animation: loadingShow ease 300ms forwards;
 }
+
 .createLoadingWrapper.show {
     display: flex;
 }
+
 @keyframes createTileAppear {
     from {
         width: 0px;
@@ -103,6 +166,16 @@
         opacity: 100%;
         width: 150px;
         padding: 20px 20px;
+    }
+}
+
+@keyframes createAfterClose {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
     }
 }
 
@@ -120,6 +193,20 @@
     }
 }
 
+@keyframes selectClose1 {
+    from {
+        top: 20px;
+        opacity: 100%;
+        scale: 1;
+    }
+
+    to {
+        top: 40px;
+        opacity: 0;
+        scale: 0.5;
+    }
+}
+
 @keyframes selectAppear2 {
     from {
         top: calc(50% - 43px);
@@ -131,6 +218,20 @@
         top: calc(50% - 43px);
         opacity: 100%;
         scale: 1;
+    }
+}
+
+@keyframes selectClose2 {
+    from {
+        top: calc(50% - 43px);
+        opacity: 100%;
+        scale: 1;
+    }
+
+    to {
+        top: calc(50% - 43px);
+        opacity: 0;
+        scale: 0.5;
     }
 }
 
@@ -148,6 +249,20 @@
     }
 }
 
+@keyframes selectClose3 {
+    from {
+        bottom: calc(50% - 63px);
+        opacity: 100%;
+        scale: 1;
+    }
+
+    to {
+        bottom: calc(50% - 33px);
+        opacity: 0;
+        scale: 0.5;
+    }
+}
+
 @keyframes buttonAppear {
     from {
         bottom: -40px;
@@ -162,12 +277,26 @@
     }
 }
 
+@keyframes buttonClose {
+    from {
+        bottom: 20px;
+        opacity: 100%;
+        scale: 1;
+    }
+
+    to {
+        bottom: 60px;
+        opacity: 0;
+        scale: 0.5;
+    }
+}
+
 @keyframes loadingShow {
     from {
         display: flex;
         opacity: 0;
-    }   
-    
+    }
+
     to {
         display: flex;
         opacity: 100%;
