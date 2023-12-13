@@ -27,6 +27,11 @@
     margin-top: 10px;
     gap: 15px;
 
+    #passwordField {
+        width: 454px;
+        padding: 0 65px 0 15px;
+    }
+
     .AuthField {
         color: rgb(58, 58, 58);
         padding: 0 15px;
@@ -120,4 +125,13 @@
     height: 149px;
     opacity: 100%;
     top: -25px;
+}
+
+.passwordControl {
+    position: absolute;
+    cursor: pointer;
+    top: 7px;
+    right: 15px;
+    width: 40px;
+    user-select: none;
 }

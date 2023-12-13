@@ -6,6 +6,8 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import DeadLineTimer from "./components/deadlineTimer"
 import Loading from "../../components/Loading/Loading"
+import viewSvg from "./svg/view.svg"
+import noViewSvg from "./svg/no-view.svg"
 
 let login = "admin", password = "admin"
 const authApi = '/users/'
@@ -18,6 +20,7 @@ const Authorization = (props) => {
     const [student, setStudent] = useState(localStorage.getItem('lastType') ? JSON.parse(localStorage.getItem('lastType')) : true)
     const [inputFill, setFill] = useState({ loginFill: true, passwordFill: true })
     const [accData, setAccData] = useState({ login: '', password: '' })
+    const [showPassword, setShowPassword] = useState(false)
     const [successLogin, setSuccess] = useState(true)
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
@@ -51,6 +54,16 @@ const Authorization = (props) => {
         }
     }
 
+    const setView = (target) => {
+        target.currentTarget.offsetParent.children[0].type = 'text'
+        setShowPassword(true)
+    }
+
+    const setNoView = (target) => {
+        target.currentTarget.offsetParent.children[0].type = 'password'
+        setShowPassword(false)
+    }
+
     return <form onLoad={() => { login = ''; password = '' }} onSubmit={event => event.preventDefault()}>
         <div className="Authorization">
             <img src={BigLogo} alt="" className="Logo" />
@@ -62,7 +75,8 @@ const Authorization = (props) => {
                     <span className={`noFillSpan ${inputFill.loginFill ? '' : 'show'}`}>Поле обязательно к заполнению*</span>
                 </div>
                 <div className={`passwordInputDiv ${!inputFill.loginFill ? 'show' : ''}`}>
-                    <input value={accData.password} type="password" placeholder="Пароль" name="PasswordField" id="PasswordField" className="AuthField" onKeyUp={el => { if (el.key === 'Enter') Auth() }} onInput={ev => { setAccData({ ...accData, password: ev.target.value }); if (!inputFill.passwordFill) setFill({ ...inputFill, passwordFill: true }); if (!successLogin) setSuccess(true) }} />
+                    <input value={accData.password} type="password" placeholder="Пароль" name="passwordField" id="passwordField" className="AuthField" onKeyUp={el => { if (el.key === 'Enter') Auth() }} onInput={ev => { setAccData({ ...accData, password: ev.target.value }); if (!inputFill.passwordFill) setFill({ ...inputFill, passwordFill: true }); if (!successLogin) setSuccess(true) }} />
+                    <div onMouseDown={setView} onMouseOut={setNoView} onMouseUp={setNoView} className="passwordControl"><img src={showPassword ? viewSvg : noViewSvg} draggable="false" alt="" /></div>
                     <span className={`noFillSpan ${inputFill.passwordFill ? '' : 'show'}`}>Поле обязательно к заполнению*</span>
                 </div>
                 <button type="submit" className={`AuthButton ${!inputFill.passwordFill ? 'show' : ''}`}
