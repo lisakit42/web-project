@@ -7,7 +7,7 @@ const Header = () => {
     const navigate = useNavigate()
     return <header>
         <img src={BigLogo}  className='headerLogo'/>
-        <button onClick={() => {localStorage.clear(); navigate('/')}}>Logout</button>
+        <button onClick={() => {localStorage.removeItem('user'); navigate('/')}}>Logout</button>
         <div className='headerUser'>
             <a className='fioLink'>{localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).Surname_Name : ''}</a>
             <div className='avatar'>

@@ -19,6 +19,7 @@ const AddLab = (props) => {
 }
 
 const ProgrammEditPage = () => {
+    const navigate = useNavigate();
     const params = useParams();
     const [info, setInfo] = useState({ f: 'f' })
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api';
@@ -29,7 +30,7 @@ const ProgrammEditPage = () => {
     }
 
     useEffect(() => { fetchProgramm() }, [])
-    const navigate = useNavigate();
+
     return <div className="programmEditPageWrapper">
         <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
         {info.f ? <Loading height='187' /> : info.subject ? <div className="programmInfo">
@@ -49,7 +50,7 @@ const ProgrammEditPage = () => {
                 </tr>
             </thead>
             <tbody>
-                {info.subject && info.subject.length && info.labs.map((el, i) => <LabTableRow number={i + 1} id={el.id} title={el.name} startDate={el.beginDate} deadline={el.deadline} link={el.link} />)}
+                {info.subject && info.subject.length && info.labs.map((el, i) => <LabTableRow deleteLab={id => { setInfo({ ...info, labs: info.labs.filter(el => el.id !== id) }) }} number={i + 1} id={el.id} title={el.name} startDate={el.beginDate} deadline={el.deadline} link={el.link} />)}
             </tbody>
         </table> : null}
         {info.f ? null : info.subject ? <AddLab count={info.labs.length} programmId={params.programmId} addLab={(lab) => { setInfo({ ...info, labs: [...info.labs, lab] }) }} /> : null}

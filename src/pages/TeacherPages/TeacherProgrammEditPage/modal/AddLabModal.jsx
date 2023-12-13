@@ -19,8 +19,8 @@ const AddLabModal = (props) => {
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
     const postLabApi = `/lab/${props.programmId}`
 
-    const close = (event) => {
-        let wrap = document.querySelector('.addModalWrapper');
+    const close = () => {
+        const wrap = document.querySelector('.addModalWrapper');
         wrap.classList.add('disappear');
         setLoading(false)
         setTimeout(() => { props.setModalOpen(false) }, 180)
@@ -38,7 +38,7 @@ const AddLabModal = (props) => {
             const formData = new FormData();
             formData.append('Json', JSON.stringify(json))
             formData.append('File', file)
-            axios.post(postLabApi, formData).then(res => { document.querySelector('.loadingWrapper').classList.add('success'); props.addLab({ name: json.name, beginDate: json.beginDate, deadline: json.deadline, link: res.data }); setTimeout(close, 1500) }).catch(err => console.log(err))
+            axios.post(postLabApi, formData).then(res => { document.querySelector('.loadingWrapper').classList.add('success'); props.addLab({ name: res.data.name, beginDate: res.data.beginDate, deadline: res.data.deadline, link: res.data.link, id: res.data.id }); setTimeout(close, 1500) }).catch(err => console.log(err))
         } else {
             alert('Заполните все поля')
         }
