@@ -17,30 +17,29 @@ const TeacherProgrammsList = () => {
     const SubjectsListApiUrl = '/programm/subjects';
 
     const fetchSubjects = async (tempData) => {
-        console.log(tempData)
         await axios.get(SubjectsListApiUrl).then(res => { setSubjects(res.data.filter(subj => !tempData.filter(prog => subj === prog.subject).length)) })
         setFetched(true)
         setProgrammsList(listBuild(tempData))
         setLoading(false)
     }
-    
+
     const fetchProgramms = async () => {
-        let tempData;
-        await axios.get(TeacherProgrammsApiUrl).then(res => { tempData = res.data }).catch(err => console.log(err))
-        fetchSubjects(tempData);
+        await axios.get(TeacherProgrammsApiUrl).then(res => { fetchSubjects(res.data) }).catch(err => console.log(err))
     }
 
     if (!fetched) fetchProgramms();
 
 
     const listBuild = (programms) => {
+        console.log('билд')
         const programmsList = []
         let tiles = []
         programms.forEach((el) => {
             el.programms.forEach((el, i) => {
                 tiles.push(<ProgrammTile tileIndex={tiles.length} programmInfo={el} />)
             })
-            programmsList.push(<TilesContainer subject={el.subject} tiles={tiles} />)
+            // console.log(tiles)
+            programmsList.push(<TilesContainer fetchProgramms={() => {fetchProgramms()}} subject={el.subject} tiles={tiles} />)
             tiles = []
         });
 

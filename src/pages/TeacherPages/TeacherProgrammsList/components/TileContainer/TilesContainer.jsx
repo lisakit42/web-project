@@ -11,11 +11,12 @@ const TilesContainer = (props) => {
     const gapInc = () => {
         setGap(gap + 1)
     }
-    const [tiles, setTiles] = useState(props.tiles.map((el) => <ProgrammTile tileIndex={el.props.tileIndex} programmInfo={el.props.programmInfo} gapInc={gapInc}/>))
+
+    const [tiles, setTiles] = useState(props.tiles.map((el) => <ProgrammTile fetchProgramms={() => {props.fetchProgramms()}} tileIndex={el.props.tileIndex} programmInfo={el.props.programmInfo} gapInc={gapInc}/>))
 
     const addTile = (info) => {
         const temp = [...tiles]
-        temp.push(<ProgrammTile tileIndex={temp.length} programmInfo={
+        temp.push(<ProgrammTile fetchProgramms={() => {props.fetchProgramms()}} tileIndex={temp.length} programmInfo={
             {
                 Id: info.Id,
                 subject: props.subject,
@@ -28,7 +29,7 @@ const TilesContainer = (props) => {
         setTiles(temp)
     }
 
-    if (tiles.length === 0 || tiles[tiles.length - 1].type.name !== (<CreateProgrammTile />).type.name) setTiles([...tiles, <CreateProgrammTile subject={props.subject} addTile={addTile} />])
+    if (tiles.length === 0 || tiles[tiles.length - 1].type.name !== (<CreateProgrammTile />).type.name) setTiles([...tiles, <CreateProgrammTile subject={props.subject} tiles={tiles} addTile={addTile} />])
 
     return <div className='subjectProgrammsWrapper' >
         <p>{props.subject}</p>

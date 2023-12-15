@@ -1,30 +1,115 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './CreateProgrammTile.scss'
 import plus from './img/plus.svg'
 import axios from 'axios';
 import Loading from '../../../../../components/Loading/Loading';
 
-const data = [{
-    faculty: 'ФПИ',
-    groups: ['ИТ', 'ПИ', 'БИ']
-},
-{
-    faculty: 'ЭК',
-    groups: ['1', '2', '3']
-},
-{
-    faculty: 'АГР',
-    groups: ['4', '5', '6']
-}]
-
 const CreateProgrammTile = (props) => {
     const [create, setCreate] = useState(false)
     const [close, setClose] = useState(false)
-    const [info, setInfo] = useState({ semestr: '1 курс 1 семестр', faculty: data[0].faculty, group: data[0].groups[0] })
+    const [data, setData] = useState({
+        courseSem: [
+            "1 курс 1 семестр",
+            "1 курс 2 семестр",
+            "2 курс 1 семестр",
+            "2 курс 2 семестр",
+            "3 курс 1 семестр",
+            "3 курс 2 семестр",
+            "4 курс 1 семестр",
+            "4 курс 2 семестр"
+        ],
+        faculties: [
+            {
+                faculty: 'ФПИ',
+                able: true,
+                groups: [
+                    {
+                        val: 'ИТ',
+                        able: true
+                    },
+                    {
+                        val: 'ПИ',
+                        able: true
+                    },
+                    {
+                        val: 'БИ',
+                        able: true
+                    }
+                ]
+            },
+            {
+                faculty: 'ЭК',
+                able: true,
+                groups: [
+                    {
+                        val: '1',
+                        able: true
+                    },
+                    {
+                        val: '2',
+                        able: true
+                    },
+                    {
+                        val: '3',
+                        able: true
+                    }
+                ]
+            },
+            {
+                faculty: 'АГР',
+                able: true,
+                groups: [
+                    {
+                        val: '4',
+                        able: true
+                    },
+                    {
+                        val: '5',
+                        able: true
+                    },
+                    {
+                        val: '6',
+                        able: true
+                    }
+                ]
+            },
+        ]
+    })
+    const [info, setInfo] = useState({ semestr: '1 курс 1 семестр', faculty: data.faculties[0].faculty, group: data.faculties[0].groups[0] })
     const [loading, setLoading] = useState(false)
+
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
     const addProgrammApi = '/programm'
-    let groupsList = data.filter(el => el.faculty === info.faculty)[0].groups
+
+    console.log(props.tiles)
+
+    const checkAble = (event) => {
+        const tempData = { ...data };
+        const banList = {};
+        const value = event ? event.target.value : '1 курс 1 семестр'
+        let programmInfo;
+        for (let i = 0; i < props.tiles.length; i++) {
+            programmInfo = props.tiles[i].props.programmInfo;
+            if (`${programmInfo.course} курс ${programmInfo.sem} семестр` === value) {
+                if (banList[`${programmInfo.faculty}`]) banList[`${programmInfo.faculty}`].push(programmInfo.group)
+                else banList[`${programmInfo.faculty}`] = [programmInfo.group]
+            }
+        }
+        const resultData = {
+            ...data, faculties: tempData.faculties.map(facObj => {
+                return {
+                    ...facObj,
+                    groups: facObj.groups.map(grp => {
+                        console.log(facObj)
+                        return { val: grp.val, able: !(banList[facObj.faculty] && banList[facObj.faculty].filter(el => el == grp.val).length) }
+                    }),
+                    able: banList[facObj.faculty] ? !!facObj.groups.filter(grp => banList[facObj.faculty].filter(el => el !== grp.val).length) : true
+                }
+            })
+        }
+        setData({ ...resultData })
+        setInfo({ semestr: value, faculty: resultData.faculties[0].faculty, group: data.faculties[0].groups[0] })
+    }
 
     const SelectHandler = (event) => {
         switch (event.target.id) {
@@ -39,56 +124,50 @@ const CreateProgrammTile = (props) => {
         }
     }
 
-    if (groupsList[0] !== info.group) setInfo({ ...info, group: groupsList[0] })
+    useEffect(checkAble, [])
 
     return create ?
-        <div className="TileWrapper create">
-            <select id="semestr" onChange={SelectHandler} name="semestr">
-                <option value="1 курс 1 семестр">1 курс 1 семестр</option>
-                <option value="1 курс 2 семестр">1 курс 2 семестр</option>
-                <option value="2 курс 1 семестр">2 курс 1 семестр</option>
-                <option value="2 курс 2 семестр">2 курс 2 семестр</option>
-                <option value="3 курс 1 семестр">3 курс 1 семестр</option>
-                <option value="3 курс 2 семестр">3 курс 2 семестр</option>
-                <option value="4 курс 1 семестр">4 курс 1 семестр</option>
-                <option value="4 курс 2 семестр">4 курс 2 семестр</option>
-                <option value="5 курс 1 семестр">5 курс 1 семестр</option>
-                <option value="5 курс 2 семестр">5 курс 2 семестр</option>
-                <option value="6 курс 1 семестр">6 курс 1 семестр</option>
-                <option value="6 курс 2 семестр">6 курс 2 семестр</option>
+        <form className="TileWrapper create">
+            <select id="semestr" onChange={checkAble} name="semestr">
+                {data.courseSem.map(el => <option value={el}>{el}</option>)}
             </select>
             <select id="faculty" onChange={SelectHandler} name="faculty">
-                {data.map(el => <option value={el.faculty}>{el.faculty}</option>)}
+                {data.faculties.filter(el => el.able).map(el => <option value={`${el.faculty}`}>{el.faculty}</option>)}
             </select>
             <select id="group" onChange={SelectHandler} onSelect={() => { console.log('select') }} name="group">
-                {groupsList.map(el => <option value={el}>{el}</option>)}
+                {!!data.faculties.filter(el => el.faculty == info.faculty).length && data.faculties.filter(el => el.faculty == info.faculty)[0].groups.filter(el => el.able).map(el => <option value={el.val}>{el.val}</option>)}
             </select>
-            <button onClick={() => {
-                setLoading(true);
-                axios.post(addProgrammApi,
+            <button onClick={event => {
+                event.preventDefault()
+                if (!event.target.form[1].value || !event.target.form[2].value) { alert('Невозможный ввод'); }
+                else {
+                    setLoading(true);
+                    axios.post(addProgrammApi,
                     {
                         teacher_id: JSON.parse(localStorage.getItem('user')).Id,
-                        subject: props.subject, course: info.semestr.split(' ')[0],
-                        sem: info.semestr.split(' ')[2],
-                        faculty: info.faculty,
-                        group: info.group
+                        subject: props.subject,
+                        course: event.target.form[0].value.split(' ')[0],
+                        sem: event.target.form[0].value.split(' ')[2],
+                        faculty: event.target.form[1].value,
+                        group: event.target.form[2].value
                     }).then(res => props.addTile(
                         {
                             Id: res.data,
-                            sem: info.semestr,
-                            faculty: info.faculty,
-                            group: info.group
+                            sem: event.target.form[0].value,
+                            faculty: event.target.form[1].value,
+                            group: event.target.form[2].value
                         }
-                    )).catch(err => console.log(err))
+                    )).catch(err => console.log(err))}
             }}>Сохранить</button>
             <div className={`createLoadingWrapper ${loading ? 'show' : ''}`}>
                 <Loading />
             </div>
             <button className="cancelButton" onClick={el => {
+                el.preventDefault()
                 el.target.offsetParent.classList.toggle('cancel');
                 setTimeout(() => { setCreate(false); setClose(true) }, 200)
             }}>Отменить</button>
-        </div>
+        </form>
         :
         <div onClick={(el) => { el.currentTarget.classList.add('hide'); setTimeout(() => { setCreate(true) }, 100) }} className={`createTileWrapper ${close ? 'afterClose' : ''}`}>
             <img src={plus} alt='' className="plusButton"></img>

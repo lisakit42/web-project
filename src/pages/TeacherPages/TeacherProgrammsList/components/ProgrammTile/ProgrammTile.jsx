@@ -21,7 +21,7 @@ const ProgrammTile = (props) => {
         {deletePrevent ? <div className="TileWrapper deletePreventWindow">
             <p>Удалить программу?</p>
             <div className="deletePreventButtons">
-                <button className="accept" onClick={(event) => {setLoading(true); event.stopPropagation(); axios.delete(deleteProgrammApi).then(() => { props.gapInc(); setLoading(false); setDeleted(true); setTimeout(() => {document.getElementById(`programm-${props.programmInfo.Id}`).remove();}, 200)}).catch(err => console.log(err))}}>Да</button>
+                <button className="accept" onClick={(event) => {setLoading(true); event.stopPropagation(); axios.delete(deleteProgrammApi).then(() => { props.gapInc(); setLoading(false); setDeleted(true); props.fetchProgramms(); setTimeout(() => {document.getElementById(`programm-${props.programmInfo.Id}`).remove();}, 200)}).catch(err => console.log(err))}}>Да</button>
                 <button onClick={(el) => { el.target.offsetParent.classList.add('close'); el.stopPropagation(); setTimeout(() => { setDeletePrevent(false) }, 200) }}>Нет</button>
             </div>
             <div className={`createLoadingWrapper ${loading ? 'show' : ''}`}>
