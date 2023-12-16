@@ -7,6 +7,7 @@ import Loading from '../../../../../components/Loading/Loading';
 const CreateProgrammTile = (props) => {
     const [create, setCreate] = useState(false)
     const [close, setClose] = useState(false)
+    const [reload, setReload] = useState(false)
     const [data, setData] = useState({
         courseSem: [
             "1 курс 1 семестр",
@@ -75,13 +76,11 @@ const CreateProgrammTile = (props) => {
             },
         ]
     })
-    const [info, setInfo] = useState({ semestr: '1 курс 1 семестр', faculty: data.faculties[0].faculty, group: data.faculties[0].groups[0] })
+
     const [loading, setLoading] = useState(false)
 
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
     const addProgrammApi = '/programm'
-
-    console.log(props.tiles)
 
     const checkAble = (event) => {
         const tempData = { ...data };
@@ -100,7 +99,6 @@ const CreateProgrammTile = (props) => {
                 return {
                     ...facObj,
                     groups: facObj.groups.map(grp => {
-                        console.log(facObj)
                         return { val: grp.val, able: !(banList[facObj.faculty] && banList[facObj.faculty].filter(el => el == grp.val).length) }
                     }),
                     able: banList[facObj.faculty] ? !!facObj.groups.filter(grp => banList[facObj.faculty].filter(el => el !== grp.val).length) : true
@@ -108,20 +106,6 @@ const CreateProgrammTile = (props) => {
             })
         }
         setData({ ...resultData })
-        setInfo({ semestr: value, faculty: resultData.faculties[0].faculty, group: data.faculties[0].groups[0] })
-    }
-
-    const SelectHandler = (event) => {
-        switch (event.target.id) {
-            case 'semestr':
-                setInfo({ ...info, semestr: event.target.value }); break;
-            case 'faculty':
-                setInfo({ ...info, faculty: event.target.value }); break;
-            case 'group':
-                setInfo({ ...info, group: event.target.value }); break;
-            default:
-                console.log('INCORRECT_INPUT'); break;
-        }
     }
 
     useEffect(checkAble, [])
@@ -131,11 +115,11 @@ const CreateProgrammTile = (props) => {
             <select id="semestr" onChange={checkAble} name="semestr">
                 {data.courseSem.map(el => <option value={el}>{el}</option>)}
             </select>
-            <select id="faculty" onChange={SelectHandler} name="faculty">
+            <select id="faculty"  onChange={el => setReload(!reload)} name="faculty">
                 {data.faculties.filter(el => el.able).map(el => <option value={`${el.faculty}`}>{el.faculty}</option>)}
             </select>
-            <select id="group" onChange={SelectHandler} onSelect={() => { console.log('select') }} name="group">
-                {!!data.faculties.filter(el => el.faculty == info.faculty).length && data.faculties.filter(el => el.faculty == info.faculty)[0].groups.filter(el => el.able).map(el => <option value={el.val}>{el.val}</option>)}
+            <select id="group" name="group">
+                {!!data.faculties.filter(el => el.able).length && document.getElementById('faculty') ? data.faculties.filter(el => el.faculty == document.getElementById('faculty').value)[0].groups.filter(el => el.able).map(el => <option value={el.val}>{el.val}</option>) : data.faculties.filter(el => el.able)[0].groups.filter(el => el.able).map(el => <option value={el.val}>{el.val}</option>)}
             </select>
             <button onClick={event => {
                 event.preventDefault()

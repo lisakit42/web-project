@@ -1,5 +1,6 @@
 import axios from 'axios';
 import downloadSvg from './svg/download.svg'
+import ActionSelector from './components/ActionSelector';
 
 const LabTableRow = (props) => {
     const beginDate = new Date(props.startDate);
@@ -8,12 +9,11 @@ const LabTableRow = (props) => {
     const deleteLabApi = `/lab/${props.id}`;
 
     const deleteLab = async () => {
+        const deleteWrapClasses = document.getElementById(`deleteAnimWrapper_${props.number}`).classList
+        deleteWrapClasses.add('show');
         await axios.delete(deleteLabApi).then(() => {
-            document.querySelector('.deleteAnimWrapper').classList.toggle('show');
-            setTimeout(() => {
-                props.deleteLab(props.id);
-                document.querySelector('.deleteAnimWrapper').classList.toggle('show')
-            }, 2000)
+            deleteWrapClasses.add('end')
+            setTimeout(() => {props.deleteLab(props.id);}, 500)
         }).catch((err) => { console.log(err) })
     }
 
@@ -22,15 +22,11 @@ const LabTableRow = (props) => {
         <td>{props.title}</td>
         <td>{`${beginDate.getDate() < 10 ? `0${beginDate.getDate()}` : beginDate.getDate()}.${beginDate.getMonth() + 1 < 10 ? `0${beginDate.getMonth() + 1}` : beginDate.getMonth() + 1}.${beginDate.getFullYear()}`}</td>
         <td>{`${deadLine.getDate() < 10 ? `0${deadLine.getDate()}` : deadLine.getDate()}.${deadLine.getMonth() + 1 < 10 ? `0${deadLine.getMonth() + 1}` : deadLine.getMonth() + 1}.${deadLine.getFullYear()}`}</td>
-        <td>
-            <div className='deleteAnimWrapper'>
+        
+            <div id={`deleteAnimWrapper_${props.number}`} className='deleteAnimWrapper'>
                 <div className='deleteAnim'> </div>
             </div>
-            <div onClick={deleteLab} className='labActions'>
-                делит
-            </div>
-        </td>
-        <td></td>
+        <ActionSelector />
     </tr>
 }
 

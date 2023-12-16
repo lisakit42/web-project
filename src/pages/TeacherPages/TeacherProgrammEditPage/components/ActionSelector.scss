@@ -1,0 +1,24 @@
+.selectorWrapper {
+    display: flex;
+    position: relative;
+    right: 0;
+    width: 40px !important;
+    height: 40px;
+    align-items: center;
+    .dotsButton {
+        display: flex;
+        position: absolute;
+        right: 5px;
+        font-size: 30px;
+        border: none;
+    }   
+}
+
+.selectorWindow {
+    display: none;
+    position: absolute;
+    background-color: red;
+    right: 0;
+    width: 100px;
+    height: 40px;
+}
