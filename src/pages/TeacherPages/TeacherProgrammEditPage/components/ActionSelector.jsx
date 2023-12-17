@@ -1,32 +1,36 @@
+import AddLabModal from '../modal/AddLabModal';
+import ReactDOM from 'react-dom'
 import './ActionSelector.scss'
+import { useState } from 'react';
 
 let downloadHover = false;
+
+const portal = document.getElementById('modal');
+
+
 const ActionSelector = (props) => {
+    const [isEdit, setEdit] = useState(false)
+
+    const close = () => {
+        const actionSelector = document.getElementById(`actionSelector_${props.labInfo.number}`).classList
+        actionSelector.add('close')
+        setTimeout(() => {
+            actionSelector.remove('close')
+            actionSelector.remove('show')
+        }, 200)
+    }
+    console.log(props.labInfo)
+
     return <div className="selectorWrapper">
-        <span onClick={el => {
-            document.getElementById(`actionSelector_${props.id}`).classList.add('show');
-            document.getElementById(`actionSelector_${props.id}`).focus();
+        <span onClick={() => {
+            document.getElementById(`actionSelector_${props.labInfo.number}`).classList.add('show');
+            document.getElementById(`actionSelector_${props.labInfo.number}`).focus();
         }} className='dotsButton'>
             •••
         </span>
-        <div id={`actionSelector_${props.id}`} className="selectorWindow" tabIndex='0' onBlur={el => {
-            if (!downloadHover) {
-                el.target.classList.add('close');
-                setTimeout(() => {
-                    el.target.classList.remove('show');
-                    el.target.classList.remove('close')
-                }, 200)
-            }
-        }} >
-            <a href={props.link} >
-                <span onClick={(ev) => {
-                    const actionSelector = document.getElementById(`actionSelector_${props.id}`).classList
-                    actionSelector.add('close')
-                    setTimeout(() => {
-                        actionSelector.remove('close')
-                        actionSelector.remove('show')
-                    }, 200)
-                }} className="downloadActionBtn" onMouseOver={() => { downloadHover = true }} onMouseOut={() => { downloadHover = false }}>
+        <div id={`actionSelector_${props.labInfo.number}`} className="selectorWindow" tabIndex='0' onBlur={() => { if (!downloadHover) close() }} >
+            <a href={props.labInfo.link} >
+                <span onClick={close} className="downloadActionBtn" onMouseOver={() => { downloadHover = true }} onMouseOut={() => { downloadHover = false }}>
                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                         width="1280.000000pt" height="1280.000000pt" viewBox="0 0 1280.000000 1280.000000"
                         preserveAspectRatio="xMidYMid meet">
@@ -37,7 +41,7 @@ const ActionSelector = (props) => {
                     </svg>
                 </span>
             </a>
-            <span className="editActionBtn">
+            <span className="editActionBtn" onClick={() => { setEdit(true); close() }}>
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                     width="752.000000pt" height="752.000000pt" viewBox="0 0 752.000000 752.000000"
                     preserveAspectRatio="xMidYMid meet">
@@ -61,6 +65,9 @@ const ActionSelector = (props) => {
                     </g>
                 </svg>
             </span>
+        </div>
+        <div>
+            {isEdit && ReactDOM.createPortal(<AddLabModal labInfo={props.labInfo} isEdit={isEdit} closeEdit={() => {setEdit(false)}} />, portal)}
         </div>
     </div>
 }

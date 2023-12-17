@@ -35,7 +35,7 @@ const ProgrammEditPage = () => {
         <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
         {info.f ? <Loading height='187' /> : info.subject ? <div className="programmInfo">
             <h1>{`${info.subject}`}</h1>
-            <h2>{`${info.course} курс ${info.sem} сем`}</h2>
+            <h2>{`${info.course} курс ${info.sem} семестр`}</h2>
         </div> : <div style={{ margin: '0 auto', marginTop: '73px', marginBottom: '29px' }}><h1 style={{ fontSize: '70px' }}>404 Not foung</h1></div>}
         <div className="greenLine"></div>
         {info.f ? <Loading /> : info.subject ? <table className="labsTable">
@@ -59,7 +59,7 @@ const ProgrammEditPage = () => {
                         number={i + 1}
                         id={el.id}
                         title={el.name}
-                        startDate={el.beginDate}
+                        beginDate={el.beginDate}
                         deadline={el.deadline}
                         link={el.link} />)}
             </tbody>

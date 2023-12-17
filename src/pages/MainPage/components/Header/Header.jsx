@@ -1,18 +1,18 @@
-import { useNavigate } from 'react-router-dom';
 import './Header.scss'
 import BigLogo from './BigLogoWhite.svg'
 import Ava from '../../../TeacherPages/TeacherProgrammsList/components/ProgrammTile/KubsauLogo.svg'
+import { useState } from 'react';
+import AccActions from './AccActions';
 
 const Header = () => {
-    const navigate = useNavigate()
     return <header>
         <img src={BigLogo}  className='headerLogo'/>
-        <button onClick={() => {localStorage.removeItem('user'); navigate('/')}}>Logout</button>
-        <div className='headerUser'>
-            <a className='fioLink'>{localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).Surname_Name : ''}</a>
+        <div className='headerUser' onClick={() => {document.querySelector('.accActionsWrapper').classList.add('show');document.querySelector('.accActionsWrapper').focus()}}>
+            <p className='fioLink'>{localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).Surname_Name : ''}</p>
             <div className='avatar'>
                 <img src={Ava} alt="" />
             </div>
+            <AccActions /> 
         </div>
     </header>
 }

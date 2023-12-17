@@ -10,10 +10,6 @@ header {
     background-color: #2E7F3E;
 }
 
-.headerLogo {
-    
-}
-
 .fioLink {
     color: white;
 }
@@ -22,19 +18,76 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+    position: relative;
+
+    .avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        border-radius: 25px;
+        width: 50px;
+        height: 50px;
+
+        img {
+            margin-left: 0.5px;
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+    .accActionsWrapper {
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        justify-content: end;
+        padding: 15px;
+        top: 60px;
+        width: 120%;
+        right: 0;
+        height: 50px;
+        border: 1px solid black;
+        background-color: white;
+        overflow: hidden;
+        border-radius: 5px;
+        z-index: 1;
+        animation: accActionsAppear ease 200ms forwards;
+        outline: none;
+    }
+
+    .accActionsWrapper.show {
+        display: flex;
+    }
+
+    .accActionsWrapper.close {
+        animation: accActionsClose ease 200ms forwards;
+    }
 }
 
-.avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 25px;
-    width: 50px;
-    height: 50px;
-    img {
-        margin-left: 0.5px;
-        width: 35px;
-        height: 35px;
+@keyframes accActionsAppear {
+    from {
+        height: 0;
+        padding: 0 5px;
+        opacity: 0;
+    }
+
+    to {
+        height: 50px;
+        padding: 5px;
+        opacity: 100%;
+    }
+}
+
+@keyframes accActionsClose {
+    from {
+        height: 50px;
+        padding: 5px;
+        opacity: 100%;
+    }
+
+    to {
+        height: 0;
+        opacity: 0;
+        padding: 0 5px;
     }
 }

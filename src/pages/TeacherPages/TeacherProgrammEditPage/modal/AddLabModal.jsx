@@ -8,10 +8,10 @@ import LabFilePicker from "./components/FilePicker"
 import Loading from "../../../../components/Loading/Loading"
 
 const AddLabModal = (props) => {
-    const [beginDate, setBeginDate] = useState(new Date())
-    const [deadline, setDeadline] = useState(new Date())
+    const [beginDate, setBeginDate] = useState(props.isEdit ? new Date(props.labInfo.beginDate) : new Date())
+    const [deadline, setDeadline] = useState(props.isEdit ? new Date(props.labInfo.deadline) : new Date())
     const [file, setFile] = useState()
-    const [name, setName] = useState()
+    const [name, setName] = useState(props.isEdit ? props.labInfo.title : null)
     const [loading, setLoading] = useState(false);
     const datesDiff = new Date(deadline - beginDate)
     let datesDiffInfo = ''
@@ -20,10 +20,11 @@ const AddLabModal = (props) => {
     const postLabApi = `/lab/${props.programmId}`
 
     const close = () => {
-        const wrap = document.querySelector('.addModalWrapper');
-        wrap.classList.add('disappear');
-        setLoading(false)
-        setTimeout(() => { props.setModalOpen(false) }, 180)
+        if (!loading) {
+            const wrap = document.querySelector('.addModalWrapper');
+            wrap.classList.add('disappear');
+            setTimeout(() => { if (props.isEdit) props.closeEdit(); else props.setModalOpen(false) }, 180)
+        }
     }
 
     const filledCheck = () => {
@@ -31,14 +32,26 @@ const AddLabModal = (props) => {
     }
 
     const postLab = () => {
-
         if (filledCheck()) {
             setLoading(true)
-            const json = { name: name, beginDate: beginDate, deadline: deadline, programmId: props.programmId }
+            const json = {
+                name: name,
+                beginDate: beginDate,
+                deadline: deadline,
+                programmId: props.programmId
+            }
             const formData = new FormData();
             formData.append('Json', JSON.stringify(json))
             formData.append('File', file)
-            axios.post(postLabApi, formData).then(res => { document.querySelector('.loadingWrapper').classList.add('success'); props.addLab({ name: res.data.name, beginDate: res.data.beginDate, deadline: res.data.deadline, link: res.data.link, id: res.data.id }); setTimeout(close, 1500) }).catch(err => console.log(err))
+            axios.post(postLabApi, formData).then(res => {
+                document.querySelector('.loadingWrapper').classList.add('success');
+                props.addLab({
+                    name: res.data.name,
+                    beginDate: res.data.beginDate,
+                    deadline: res.data.deadline,
+                    link: res.data.link, id: res.data.id
+                }); setTimeout(() => { if (props.isEdit) props.closeEdit(); else setLoading(false); close() }, 1200)
+            }).catch(err => console.log(err))
         } else {
             alert('Заполните все поля')
         }
@@ -114,7 +127,7 @@ const AddLabModal = (props) => {
                 <Loading fill="#6ab778" />
             </div>
             <span className='closeButton' onClick={close}>Закрыть</span>
-            <h1>Добавить лабораторную работу №{props.count + 1}</h1>
+            {props.isEdit ? <h1>Редактирование лабораторной работы №{props.labInfo.number}</h1> : <h1>Добавить лабораторную работу №{props.count + 1}</h1>}
             <LabNameInput setName={setName} name={name} />
             <div className='dateInputsWrapper'>
                 <div className="beginDatePicker">
@@ -143,8 +156,8 @@ const AddLabModal = (props) => {
                     />
                 </div>
             </div>
-                <h2>{datesDiffInfo}</h2>
-            
+            <h2>{datesDiffInfo}</h2>
+
             <LabFilePicker setFile={setFile} file={file} />
             <button onClick={() => { postLab() }} className="saveButton">Сохранить</button>
         </div>

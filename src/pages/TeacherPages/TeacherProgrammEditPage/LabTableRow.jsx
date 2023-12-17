@@ -2,7 +2,7 @@ import axios from 'axios';
 import ActionSelector from './components/ActionSelector';
 
 const LabTableRow = (props) => {
-    const beginDate = new Date(props.startDate);
+    const beginDate = new Date(props.beginDate);
     const deadLine = new Date(props.deadline);
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api';
     const deleteLabApi = `/lab/${props.id}`;
@@ -26,7 +26,12 @@ const LabTableRow = (props) => {
             }, 200)
         }).catch((err) => { console.log(err) })
     }
-
+    
+    let InfoForSelector
+    const fn = ({deleteLab , ...rest}) => {
+        InfoForSelector = rest;
+    }
+    fn(props)
     return <tr>
         <td>{props.number}</td>
         <td>{props.title}</td>
@@ -37,7 +42,7 @@ const LabTableRow = (props) => {
                 <div className='deleteAnim'></div>
             </div>
         </td>
-        <ActionSelector id={props.number} deleteLab={deleteLab} link={props.link} />
+        <ActionSelector labInfo={InfoForSelector} deleteLab={deleteLab} link={props.link} />
     </tr>
 }
 
