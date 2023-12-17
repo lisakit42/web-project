@@ -2,23 +2,174 @@
     display: flex;
     position: relative;
     right: 0;
-    width: 40px !important;
+    width: 40px;
     height: 40px;
     align-items: center;
+
     .dotsButton {
         display: flex;
         position: absolute;
+        margin-top: 10px;
         right: 5px;
         font-size: 30px;
+        user-select: none;
         border: none;
-    }   
+    }
 }
 
 .selectorWindow {
     display: none;
+    overflow: hidden;
     position: absolute;
-    background-color: red;
-    right: 0;
-    width: 100px;
-    height: 40px;
+    background-color: white;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.437);
+    justify-content: space-between;
+    align-items: center;
+    right: -49px;
+    width: 120px;
+    padding: 5px 8px;
+    border-radius: 7px;
+    outline: none;
+    z-index: 1;
+
+    span {
+        display: flex;
+        justify-content: center;
+        background-color: rgb(246, 246, 246);
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 7px;
+        border: 1px solid rgb(183, 183, 183);
+        transition: ease 200ms;
+        user-select: none;
+
+        svg {
+            width: 27px;
+            fill: black;
+            transition: ease 200ms;
+        }
+    }
+
+    .downloadActionBtn {
+        svg {
+            width: 23px;
+        }
+    }
+
+    .editActionBtn {
+        svg {
+            width: 32px;
+        }
+    }
+
+    span:hover {
+        svg {
+            fill: white;
+        }
+
+        box-shadow: 0px 0.5px 2px 1px rgba(28, 28, 28, 0.723);
+    }
+
+    .downloadActionBtn:hover {
+        background-color: #2E7F3E;
+        border: 1px solid #1b4925;
+    }
+
+    .deleteActionBtn:hover {
+        background-color: rgb(158, 0, 0);
+        border: 1px solid rgb(90, 0, 0);
+    }
+
+    .editActionBtn:hover {
+        background-color: rgb(0, 0, 194);
+        border: 1px solid rgb(0, 0, 86);
+    }
+}
+
+.selectorWindow.show {
+    display: flex;
+    animation: actionAppear ease-in-out forwards 200ms;
+}
+
+.selectorWindow.close {
+    animation: actionClose ease-in-out forwards 200ms;
+}
+
+@keyframes actionAppear {
+    from {
+        width: 0;
+        height: 0;
+        padding: 0;
+        right: 22px;
+        opacity: 0;
+        border: 1px solid rgba(0, 0, 0, 0.437);
+    }
+
+    5% {
+        padding: 0 8px;
+    }
+
+    35% {
+        height: 0px;
+        border: none;
+        width: 120px;
+        right: -39px;
+        opacity: 100%;
+    }
+
+    60% {
+        padding: 0 8px;
+    }
+
+    90% {
+        height: 37px;
+        padding: 5px 8px;
+    }
+
+    to {
+        right: -39px;
+        height: 37px;
+        padding: 5px 8px;
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.437);
+    }
+}
+
+@keyframes actionClose {
+    from {
+        right: -39px;
+        height: 37px;
+        padding: 5px 8px;
+        box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.437);
+    }
+
+    10% {
+        height: 37px;
+        padding: 5px 8px;
+    }
+
+    40% {
+        padding: 0 8px;
+    }
+
+    65% {
+        height: 0px;
+        border: none;
+        width: 120px;
+        right: -39px;
+        opacity: 100%;
+    }
+
+    95% {
+        padding: 0 8px;
+    }
+
+    to {
+        width: 0;
+        height: 0;
+        padding: 0;
+        right: 22px;
+        opacity: 0;
+        border: 1px solid rgba(0, 0, 0, 0.437);
+    }
 }
