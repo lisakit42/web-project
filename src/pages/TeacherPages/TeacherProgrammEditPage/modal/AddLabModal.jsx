@@ -13,9 +13,9 @@ const AddLabModal = (props) => {
     const [file, setFile] = useState()
     const [name, setName] = useState()
     const [loading, setLoading] = useState(false);
-
+    const datesDiff = new Date(deadline - beginDate)
+    let datesDiffInfo = ''
     registerLocale('ru', ru)
-
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
     const postLabApi = `/lab/${props.programmId}`
 
@@ -25,13 +25,13 @@ const AddLabModal = (props) => {
         setLoading(false)
         setTimeout(() => { props.setModalOpen(false) }, 180)
     }
-    
+
     const filledCheck = () => {
         return !!(name && file && beginDate && deadline)
     }
 
     const postLab = () => {
-        
+
         if (filledCheck()) {
             setLoading(true)
             const json = { name: name, beginDate: beginDate, deadline: deadline, programmId: props.programmId }
@@ -43,7 +43,70 @@ const AddLabModal = (props) => {
             alert('Заполните все поля')
         }
     }
-    console.log(props.labs)
+
+    datesDiffInfo += Math.floor(datesDiff / 86400000 / 7)
+
+    switch (Math.floor(datesDiff / 86400000 / 7)) {
+        case 1:
+        case 21:
+        case 31:
+        case 41:
+        case 51:
+            datesDiffInfo += ' неделя '
+            break;
+        case 2:
+        case 22:
+        case 32:
+        case 42:
+        case 52:
+        case 3:
+        case 23:
+        case 33:
+        case 43:
+        case 53:
+        case 4:
+        case 24:
+        case 34:
+        case 44:
+        case 54:
+            datesDiffInfo += ' недели '
+            break;
+        default:
+            datesDiffInfo += ' недель '
+            break;
+    }
+
+    datesDiffInfo += Math.ceil(datesDiff / 86400000 % 7);
+
+    switch (Math.ceil(datesDiff / 86400000 % 7)) {
+        case 1:
+        case 21:
+        case 31:
+        case 41:
+        case 51:
+            datesDiffInfo += ' день'
+            break;
+        case 2:
+        case 22:
+        case 32:
+        case 42:
+        case 52:
+        case 3:
+        case 23:
+        case 33:
+        case 43:
+        case 53:
+        case 4:
+        case 24:
+        case 34:
+        case 44:
+        case 54:
+            datesDiffInfo += ' дня'
+            break;
+        default:
+            datesDiffInfo += ' дней'
+            break;
+    }
     return <div className='addModalWrapper' id='addLabModal' >
         <span onClick={close} style={{ position: 'absolute', width: '100%', height: '100%' }}></span>
         <div className='addLabModal' >
@@ -56,13 +119,32 @@ const AddLabModal = (props) => {
             <div className='dateInputsWrapper'>
                 <div className="beginDatePicker">
                     <p>Дата начала:</p>
-                    <ReactDatePicker dateFormat='dd.MM.yyyy' locale='ru' showIcon selected={beginDate} onChange={date => { setBeginDate(date) }} />
+                    <ReactDatePicker
+                        dateFormat='dd.MM.yyyy'
+                        locale='ru'
+                        onChange={date => { setBeginDate(date) }}
+                        selected={beginDate}
+                        showIcon
+                        startDate={beginDate}
+                        endDate={deadline}
+                    />
                 </div>
                 <div className="beginDatePicker">
                     <p>Дата окончания:</p>
-                    <ReactDatePicker dateFormat='dd.MM.yyyy' locale='ru' showIcon selected={deadline} onChange={date => { setDeadline(date) }} />
+                    <ReactDatePicker
+                        dateFormat='dd.MM.yyyy'
+                        locale='ru'
+                        showIcon
+                        selected={deadline}
+                        onChange={date => { setDeadline(date) }}
+                        startDate={beginDate}
+                        endDate={deadline}
+                        minDate={beginDate}
+                    />
                 </div>
             </div>
+                <h2>{datesDiffInfo}</h2>
+            
             <LabFilePicker setFile={setFile} file={file} />
             <button onClick={() => { postLab() }} className="saveButton">Сохранить</button>
         </div>

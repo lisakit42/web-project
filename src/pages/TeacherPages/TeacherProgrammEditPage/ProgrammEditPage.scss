@@ -150,6 +150,7 @@
         background: white;
         animation: updown 400ms ease-out;
         overflow: hidden;
+        flex-wrap: wrap;
 
         .postLoading {
             display: none;
@@ -200,6 +201,10 @@
             .content {
                 animation: updown 300ms;
             }
+        }
+
+        h2 {
+            margin-right: 30%;
         }
 
         .closeButton {
