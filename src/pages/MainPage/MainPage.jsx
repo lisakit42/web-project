@@ -15,7 +15,7 @@ const MainPage = () => {
         <Header />
         <Routes>
             <Route path="/" element={JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).Type ? <StudentsMainPage /> : <TeacherMainPage /> : ""} />
-            <Route path="/subject-labs" element={<StudentSubjectPage />} />
+            <Route path="/subject/:programmInfo" element={<StudentSubjectPage />} />
             <Route path="/programm-edit-page/:programmId" element={<ProgrammEditPage />} />
             <Route path="/loading" element={<Loading />} />
         </Routes>

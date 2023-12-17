@@ -140,6 +140,7 @@ const AddLabModal = (props) => {
                         showIcon
                         startDate={beginDate}
                         endDate={deadline}
+                        maxDate={deadline}
                     />
                 </div>
                 <div className="beginDatePicker">

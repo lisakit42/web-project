@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom"
 import "./ScheduleItem.scss"
 
 
 const SchedulItem = (props) => {
     const daysArray = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", 'Суббота']
     const monthsArray = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
+    const navigate = useNavigate();
+    
     let lessonIndex = 0;
     let lessons = [
         <td className="time">8:00<br />9:30</td>,
@@ -13,16 +16,16 @@ const SchedulItem = (props) => {
         <td className="time">15:35<br />17:05</td>,
         <td className="time">17:20<br />18:50</td>
     ]
-
+    
     return <div className={"scheduleItemWrapper " + props.className}>
-        <h4 className={`cardTitle ${props.day == new Date().getDay() ? 'today' : ''}`}>{daysArray[props.day - 1]} | {`${props.date} ${monthsArray[props.month]}`} <span className={`ned-num ${props.day == new Date().getDay() ? "today" : ""}`}>{props.week_number === 1 ? 'I' : 'II'} неделя</span></h4>
+        <h4 className={`cardTitle ${props.day === new Date().getDay() ? 'today' : ''}`}>{daysArray[props.day - 1]} | {`${props.date} ${monthsArray[props.month]}`} <span className={`ned-num ${props.day == new Date().getDay() ? "today" : ""}`}>{props.week_number === 1 ? 'I' : 'II'} неделя</span></h4>
         <table>
             <tbody>
                 {lessons.map((lesson, i) => {
                     if (props.lessons[lessonIndex] && i + 1 === props.lessons[lessonIndex].Num) return <tr>
                         {lesson}
                         <td className={`type ${props.lessons[lessonIndex].Lecture ? 'lecture' : ''}`}></td>
-                        <td className="desc"><a>{props.lessons[lessonIndex].Subject}</a><br />{props.lessons[lessonIndex].Teacher}</td>
+                        <td id={`lesson_${props.day}_${lessonIndex}`} className="desc" onClick={(event) => {props.lessons[event.currentTarget.id.split('_')[2]].program && navigate(`./subject/${props.lessons[event.currentTarget.id.split('_')[2]].Teacher_id}@${props.lessons[event.currentTarget.id.split('_')[2]].program}`)}} ><p>{props.lessons[lessonIndex].Subject}</p>{props.lessons[lessonIndex].Teacher}</td>
                         <td className="who-where">{props.lessons[lessonIndex].Class}{props.lessons[lessonIndex++].Building}</td>
                     </tr>
                     else return <tr>

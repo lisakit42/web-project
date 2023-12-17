@@ -26,7 +26,7 @@ const ProgrammEditPage = () => {
 
     const getProgrammApi = `/lab/${JSON.parse(localStorage.getItem('user')).Id}/${params.programmId}`;
     const fetchProgramm = async () => {
-        await axios.get(getProgrammApi).then(res => { console.log(res.data); setInfo(res.data) }).catch(err => console.log(err))
+        await axios.get(getProgrammApi).then(res => { setInfo(res.data) }).catch(err => console.log(err))
     }
 
     useEffect(() => { fetchProgramm() }, [])
