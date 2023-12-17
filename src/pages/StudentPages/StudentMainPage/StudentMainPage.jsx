@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import Schedule from "../../../components/Schedule/Schedule"
 import "./StudentMainPage.scss"
+import SubjectsTable from "./components/SubjectsTable"
 
 const StudentMainPage = (props) => {
     const navigate = useNavigate()
@@ -11,6 +12,7 @@ const StudentMainPage = (props) => {
             <p className="where">215зр</p>
         </div>
         <Schedule />
+        <SubjectsTable />
     </div>
 }
 
