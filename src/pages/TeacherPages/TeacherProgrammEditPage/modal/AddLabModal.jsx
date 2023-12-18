@@ -14,10 +14,11 @@ const AddLabModal = (props) => {
     const [name, setName] = useState(props.isEdit ? props.labInfo.title : null)
     const [loading, setLoading] = useState(false);
     const datesDiff = new Date(deadline - beginDate)
-    let datesDiffInfo = ''
     registerLocale('ru', ru)
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
     const postLabApi = `/lab/${props.programmId}`
+    
+    let datesDiffInfo = ''
     console.log(props)
     const close = () => {
         if (!loading) {
@@ -74,7 +75,7 @@ const AddLabModal = (props) => {
                     beginDate: res.data.beginDate,
                     deadline: res.data.deadline,
                     link: res.data.link, id: res.data.id
-                }); setTimeout(() => { if (props.isEdit) props.closeEdit(); else setLoading(false); close() }, 1200)
+                }); setTimeout(() => { close(); setTimeout(() => {setLoading(false)}, 200)}, 1200)
             }).catch(err => console.log(err))
         } else {
             alert('Заполните все поля')
