@@ -25,7 +25,7 @@ const SchedulItem = (props) => {
                     if (props.lessons[lessonIndex] && i + 1 === props.lessons[lessonIndex].Num) return <tr>
                         {lesson}
                         <td className={`type ${props.lessons[lessonIndex].Lecture ? 'lecture' : ''}`}></td>
-                        <td id={`lesson_${props.day}_${lessonIndex}`} className="desc" style={props.lessons[lessonIndex].program ? { cursor: 'pointer' } : {}} onClick={event => {
+                        <td id={`lesson_${props.day}_${lessonIndex}`} className="desc" style={props.lessons[lessonIndex].program ? { cursor: 'pointer' } : {cursor: 'default'}} onClick={event => {
                             props.lessons[event.currentTarget.id.split('_')[2]].program && navigate(`${JSON.parse(localStorage.getItem('lastType')) ? './subject/' : './programm-edit-page'}${JSON.parse(localStorage.getItem('lastType')) ? props.lessons[event.currentTarget.id.split('_')[2]].Teacher_id + '@' + props.lessons[event.currentTarget.id.split('_')[2]].program : '/' + props.lessons[event.currentTarget.id.split('_')[2]].program}`)
                         }} ><p>{props.lessons[lessonIndex].Subject}</p><p style={{fontSize: '14px',marginTop: '1px', opacity: '80%'}}>{JSON.parse(localStorage.getItem('lastType')) ? props.lessons[lessonIndex].Teacher : props.lessons[lessonIndex].Group}</p></td>
                         <td className="who-where">{props.lessons[lessonIndex].Class}{props.lessons[lessonIndex++].Building}</td>
