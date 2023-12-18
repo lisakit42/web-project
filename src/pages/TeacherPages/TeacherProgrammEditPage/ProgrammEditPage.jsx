@@ -61,7 +61,7 @@ const ProgrammEditPage = () => {
                         title={el.name}
                         beginDate={el.beginDate}
                         deadline={el.deadline}
-                        link={el.link} />)}
+                        link={el.link} editLab={(lab, index) => { setInfo({...info, labs: info.labs.map((el, i) => i === index ? lab : el )})}} />)}
             </tbody>
         </table> : null}
         {info.f ? null : info.subject ? <AddLab count={info.labs.length} programmId={params.programmId} addLab={(lab) => { setInfo({ ...info, labs: [...info.labs, lab] }) }} /> : null}

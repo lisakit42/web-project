@@ -41,13 +41,14 @@ const StudentSubjectPage = (props) => {
     useEffect(() => { fetchProgramm() }, [])
     console.log(info)
     return <div className="StudentSubjectPage">
-        <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
+        
         {loading ? <Loading height='250' /> : <div className="LabsStatic">
+        <div className="backButton" onClick={() => navigate('/main')}>←Назад</div>
             <h1>{info.subject}</h1>
-            <h5>Фамилия преподователя</h5>
-            <LabsLine labs={info.labs} />
+            <h5>{info.teacher.split(' ')[0] + ' ' + info.teacher.split(' ')[1][0] + '.'}</h5>
+            {info.labs && info.labs.length ? <LabsLine labs={info.labs} /> : '' }
         </div>}
-        <div className="blackLine"></div>
+        {!info.labs ? '' : info.labs.length ? <div className="blackLine"></div> : <h1 style={{color: 'rgb(93, 93, 93)', marginTop: '180px'}}>Преподаватель пока не загрузил ни одной работы</h1>}
         <div className="labsListWrapper">
             {loading ? <Loading /> : info.labs.map((el, i) => <LabRow info={{ ...el, index: i }} />)}
         </div>

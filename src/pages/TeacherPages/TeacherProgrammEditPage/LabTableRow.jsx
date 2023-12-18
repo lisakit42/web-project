@@ -42,7 +42,7 @@ const LabTableRow = (props) => {
                 <div className='deleteAnim'></div>
             </div>
         </td>
-        <ActionSelector labInfo={InfoForSelector} deleteLab={deleteLab} link={props.link} />
+        <ActionSelector editLab={props.editLab} labInfo={InfoForSelector} deleteLab={deleteLab} link={props.link} />
     </tr>
 }
 

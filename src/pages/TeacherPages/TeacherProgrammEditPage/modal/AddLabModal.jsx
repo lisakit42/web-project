@@ -18,7 +18,7 @@ const AddLabModal = (props) => {
     registerLocale('ru', ru)
     axios.defaults.baseURL = 'http://web-project.somee.com/project/api'
     const postLabApi = `/lab/${props.programmId}`
-
+    console.log(props)
     const close = () => {
         if (!loading) {
             const wrap = document.querySelector('.addModalWrapper');
@@ -28,7 +28,31 @@ const AddLabModal = (props) => {
     }
 
     const filledCheck = () => {
-        return !!(name && file && beginDate && deadline)
+        return props.isEdit ? !!(name && beginDate && deadline) : !!(name && file && beginDate && deadline)
+    }
+    console.log(props)
+    const postEditLab = () => {
+        console.log(props)
+        if (filledCheck()) {
+            setLoading(true)
+            // axios.post(postLabApi, ).then(res => {
+            //     document.querySelector('.loadingWrapper').classList.add('success');
+            //     props.addLab({
+            //         name: res.data.name,
+            //         beginDate: res.data.beginDate,
+            //         deadline: res.data.deadline,
+            //         link: res.data.link,
+            //         id: res.data.id
+            //     }); setTimeout(() => { if (props.isEdit) props.closeEdit(); else setLoading(false); close() }, 1200)
+            // }).catch(err => console.log(err))
+            props.editLab({name: name, beginDate: beginDate, deadline: deadline, link: props.labInfo.link,
+                id: props.labInfo.id
+            }, props.labInfo.number - 1)
+            setLoading(false)
+            close();
+        } else {
+            alert('Заполните все поля')
+        }
     }
 
     const postLab = () => {
@@ -121,46 +145,49 @@ const AddLabModal = (props) => {
             break;
     }
     return <div className='addModalWrapper' id='addLabModal' >
-        <span onClick={close} style={{ position: 'absolute', width: '100%', height: '100%' }}></span>
+        {loading ? null : <span onClick={close} style={{ position: 'absolute', width: '100%', height: '100%' }}></span>}
         <div className='addLabModal' >
             <div className={`postLoading ${loading ? 'active' : ''}`}>
                 <Loading fill="#6ab778" />
             </div>
-            <span className='closeButton' onClick={close}>Закрыть</span>
+            <span className='closeButton' onClick={close}>✖</span>
             {props.isEdit ? <h1>Редактирование лабораторной работы №{props.labInfo.number}</h1> : <h1>Добавить лабораторную работу №{props.count + 1}</h1>}
             <LabNameInput setName={setName} name={name} />
             <div className='dateInputsWrapper'>
-                <div className="beginDatePicker">
-                    <p>Дата начала:</p>
-                    <ReactDatePicker
-                        dateFormat='dd.MM.yyyy'
-                        locale='ru'
-                        onChange={date => { setBeginDate(date) }}
-                        selected={beginDate}
-                        showIcon
-                        startDate={beginDate}
-                        endDate={deadline}
-                        maxDate={deadline}
-                    />
+                <div className="datePickers">
+                    <div className="beginDatePicker">
+                        <p>Дата начала:</p>
+                        <ReactDatePicker
+                            dateFormat='dd.MM.yyyy'
+                            locale='ru'
+                            onChange={date => { setBeginDate(date) }}
+                            selected={beginDate}
+                            showIcon
+                            startDate={beginDate}
+                            endDate={deadline}
+                            maxDate={deadline}
+                        />
+                    </div>
+                    <div className="beginDatePicker">
+                        <p>Дата окончания:</p>
+                        <ReactDatePicker
+                            dateFormat='dd.MM.yyyy'
+                            locale='ru'
+                            showIcon
+                            selected={deadline}
+                            onChange={date => { setDeadline(date) }}
+                            startDate={beginDate}
+                            endDate={deadline}
+                            minDate={beginDate}
+                        />
+                    </div>
                 </div>
-                <div className="beginDatePicker">
-                    <p>Дата окончания:</p>
-                    <ReactDatePicker
-                        dateFormat='dd.MM.yyyy'
-                        locale='ru'
-                        showIcon
-                        selected={deadline}
-                        onChange={date => { setDeadline(date) }}
-                        startDate={beginDate}
-                        endDate={deadline}
-                        minDate={beginDate}
-                    />
-                </div>
+                <h2>{datesDiffInfo}</h2>
             </div>
-            <h2>{datesDiffInfo}</h2>
 
-            <LabFilePicker setFile={setFile} file={file} />
-            <button onClick={() => { postLab() }} className="saveButton">Сохранить</button>
+
+            {props.isEdit ? null : <LabFilePicker setFile={setFile} file={file} />}
+            <button onClick={() => { if (props.isEdit) { postEditLab() } else postLab(); }} className="saveButton">Сохранить</button>
         </div>
     </div>
 }

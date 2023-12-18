@@ -67,7 +67,7 @@ const ActionSelector = (props) => {
             </span>
         </div>
         <div>
-            {isEdit && ReactDOM.createPortal(<AddLabModal labInfo={props.labInfo} isEdit={isEdit} closeEdit={() => {setEdit(false)}} />, portal)}
+            {isEdit && ReactDOM.createPortal(<AddLabModal editLab={props.editLab} labInfo={props.labInfo} isEdit={isEdit} closeEdit={() => {setEdit(false)}} />, portal)}
         </div>
     </div>
 }
