@@ -20,9 +20,11 @@
     cursor: pointer;
     transition: ease 500ms;
 }
+
 .PinWrapper.show {
     opacity: 100%;
     height: 81px;
+    color: #cdcdcd;
 }
 
 .PinWrapper.show.actual {

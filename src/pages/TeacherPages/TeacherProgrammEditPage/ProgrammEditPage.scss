@@ -111,20 +111,27 @@
     }
 
     .addLabButton {
-        width: 200px;
-        height: 40px;
+        padding: 7px 100px 3px 100px;
         border: none;
-        box-shadow: 0 0 10px 2px rgba(129, 129, 129, 0.457);
-        border-radius: 10px;
-        background: rgb(244, 244, 244);
+        box-shadow: 0 0 4px 2px rgba(129, 129, 129, 0.457);
+        border-radius: 15px;
+        background: #f1f1f1;
         font-size: 18px;
         font-style: italic;
         font-weight: 500;
         transition: ease 200ms;
+        svg {
+            width: 25px;
+            fill: #848484;
+            transition: ease 200ms;
+        }
     }
 
     .addLabButton:hover {
-        background: rgb(233, 233, 233);
+        background: #e6e6e6;
+        svg {
+            fill: rgb(95, 95, 95);
+        }
     }
 }
 
@@ -408,8 +415,17 @@
         .saveButton {
             width: 200px;
             height: 40px;
-            border-radius: 20px;
-            font-size: 18px;
+            border-radius: 15px;
+            padding: 0 20px;
+            box-shadow: 0 0 4px 2px rgba(129, 129, 129, 0.457);
+            border: none;
+            background-color: #f0f0f0;
+            font-size: 20px;
+            font-weight: 500;
+            transition: ease 200ms ;
+        }
+        .saveButton:hover {
+            background-color: rgb(227, 227, 227);
         }
     }
 }

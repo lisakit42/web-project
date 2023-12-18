@@ -38,7 +38,6 @@ const TeacherProgrammsList = () => {
             el.programms.forEach((el, i) => {
                 tiles.push(<ProgrammTile tileIndex={tiles.length} programmInfo={el} />)
             })
-            // console.log(tiles)
             programmsList.push(<TilesContainer fetchProgramms={() => {fetchProgramms()}} subject={el.subject} tiles={tiles} />)
             tiles = []
         });
